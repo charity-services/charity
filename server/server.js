@@ -3,7 +3,7 @@ const cors = require("cors");
 const PORT = process.env.PORT;
 const mongoose = require("mongoose");
 const userRouts = require('./routes/userRouter');
-// const recipesRouts = require('./routes/recipesRouter');
+ const beneficiaryRouter = require('./routes/beneficiaryRouter');
 const notFoundHandler = require('./middleware/404');
 const dbURI = "mongodb+srv://majdishomali1997:uVxsL6cXyv6CIZv8@cluster0.pacgw6a.mongodb.net/charity"
 const errorHandler = require('./middleware/500')
@@ -18,7 +18,7 @@ app.get("/", (req, res) => {
 });
 
 app.use(userRouts);
-// app.use(recipesRouts);
+app.use(beneficiaryRouter);
 app.use('*',notFoundHandler);
 app.use(errorHandler);
 app.use(Protected)

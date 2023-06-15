@@ -1,12 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Logo1 from "../Images/animal-charity-logo-1.png";
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import imageSign from "../Images/Dog_MagnifyingGlass.jpg"
 import jwt from 'jwt-decode' // import dependency
 import axios from 'axios';
+import {useParams, useNavigate } from "react-router-dom";
 
 export default function Signup() {
+
+  const { type} = useParams();
+
     const [name, setName] = useState("");
     const [namep, setNamep] = useState("");
 
@@ -52,7 +56,7 @@ export default function Signup() {
     firstName: name,
     email: email,
     password:password,
-    role:0
+    role: type === 'user' ? 0 : 2
   };
 
   try {
@@ -61,7 +65,16 @@ export default function Signup() {
       "http://localhost:5000/api/users",
       userData
     );
-    window.location.href = "http://localhost:3000/LogIn";
+    let x =[]
+    if (response.data.addUser.role==0){
+    x= [false ,true,true ]
+  }else if(response.data.addUser.role==1){
+     x= [true ,false,true ]
+  }else if(response.data.addUser.role==2){
+     x= [true ,true,false]
+  }
+  localStorage.setItem("auth",(response.data.token))
+    window.location.href = "http://localhost:3000/";
   } catch (error) {
     console.error("Error inserting data:", error);
   }

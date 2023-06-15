@@ -57,7 +57,9 @@ const newUser =  async (req, res) => {
       const hashPassword = await bcrypt.hash(password, 5)
       const user = new User({ firstName: firstName, email: email,password:hashPassword,role:role});
       const addUser = await user.save();
-      res.json([addUser]);
+      console.log(addUser)
+      const token = jwt.sign({ id: addUser._id, username: addUser.firstName ,role : addUser.role }, SECRETKEY, { expiresIn: '1h' });
+     res.json({ token ,addUser});
 
 
     }else{

@@ -10,6 +10,7 @@ import Footer from "./components/Footer";
 import About from "./pages/aboutPage/About";
 import SignUp from "./pages/SignUp";
 import LogIn from "./pages/Login";
+import Home from "./pages/users/Home";
 
 //------------------  Beneficiary  ----------------------- //
 import HomeBeneficiary from "./pages/beneficiary/HomeBeneficiary"
@@ -81,6 +82,10 @@ export default function App() {
   useEffect(() => {
     if (localStorage.auth != null) {
       fetchProtectedData()
+    }else{
+      setHideRouterUser(false);
+      setHideRouterAdmin(true);
+      setHideRouterProvider(true);
     }
   }, []);
 
@@ -90,10 +95,10 @@ export default function App() {
       <Router>
         <NavListMenu />
         <Routes>
-          {/* <Route index element={<Home />} /> */}
+          <Route index element={<Home />} />
           <Route path="ContactUs" element={<Contact />} /> 
           <Route path="About" element={<About />} /> 
-          <Route path="SignUp" element={<SignUp />} />
+          <Route path="/SignUp/:type" element={<SignUp />} />
           <Route path="LogIn" element={<LogIn />} />
 
         </Routes>

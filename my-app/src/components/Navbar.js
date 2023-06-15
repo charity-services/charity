@@ -204,7 +204,7 @@ export default function Example() {
 
   function handleSign() {
     if (localStorage.auth == null) {
-      window.location.href = "http://localhost:3000/SignUp";
+      window.location.href = "http://localhost:3000/SignUp/user";
     } else {
       Swal.fire({
         title: ` logout?  `,
