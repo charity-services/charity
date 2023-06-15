@@ -171,7 +171,7 @@ export default function LogIn() {
                         </button>
                         <p className="mt-6 text-xs text-gray-600 text-center">
                             No Account?
-                            <Link to="/Signup" className="border-b border-gray-500 border-dotted">
+                            <Link to="/Signup/user" className="border-b border-gray-500 border-dotted">
                                 Create one
                             </Link>
                            

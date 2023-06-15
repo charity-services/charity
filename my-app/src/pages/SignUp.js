@@ -34,23 +34,7 @@ export default function Signup() {
             validatePhone(phone)
         
             if( validateName(name) && validatePassword(password) && validateEmail(email)&& validatePhone(phone) ){
-            // alert(`welcome ${name}`)
-            // let user={
-            //     username:name,
-            //     userPassword:password,
-            //     userEmail:email,
-            //     userphone:phone,
 
-            // }
-
-  
-  // Perform registration logic here
-  // let username=name
-  // const userData = {
-  //   username,
-  //   email,
-  //   password
-  // };
 
   const userData = {
     firstName: name,

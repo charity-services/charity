@@ -14,12 +14,12 @@ const beneficiarySchema = new Schema({
         type : String,
         required : true
     },
-    password:{
+    location:{
         type : String,
         required : true
     },
     role:{
-        type : Number,
+        type : String,
         required : true
     },
     },
