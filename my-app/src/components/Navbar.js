@@ -136,8 +136,8 @@ function NavList() {
         className="font-normal"
       >
         <Link to="/">
-          <ListItem className="flex items-center gap-2 py-2 pr-4 text-black hover:bg-gray-600 hover:text-white focus:bg-amber-600">
-            <HomeIcon className="h-[18px] w-[18px] text-amber-600 " />
+          <ListItem className="flex items-center gap-2 py-2 pr-4 text-black hover:bg-gray-600 hover:text-white focus:bg-[#E8AA42]">
+            <HomeIcon className="h-[18px] w-[18px] text-[#E8AA42] " />
             Home
           </ListItem>
         </Link>
@@ -149,11 +149,10 @@ function NavList() {
         color="blue-gray"
         className="font-normal"
       >
-      { 
-      
+      {      
      localStorage.auth !=null ? <Link to="/Kitchen">
-          <ListItem className="flex items-center gap-2 py-2 pr-4 text-black hover:bg-gray-600 hover:text-white focus:bg-amber-600">
-            <RestaurantIcon style={{ height: "18px", color: "#eab308" }} />
+          <ListItem className="flex items-center gap-2 py-2 pr-4 text-black hover:bg-gray-600 hover:text-white focus:bg-[#E8AA42]">
+            <RestaurantIcon className="h-[18px] w-[18px] text-[#E8AA42] " />
             Kitchen
           </ListItem>
         </Link> :null
@@ -167,8 +166,8 @@ function NavList() {
         className="font-normal"
       >
         <Link to="/About">
-          <ListItem className="flex items-center gap-2 py-2 pr-4 text-black hover:bg-gray-600 hover:text-white focus:bg-amber-600">
-            <CubeTransparentIcon className="h-[18px] w-[18px] text-amber-600" />
+          <ListItem className="flex items-center gap-2 py-2 pr-4 text-black hover:bg-gray-600 hover:text-white focus:bg-[#E8AA42]">
+            <CubeTransparentIcon className="h-[18px] w-[18px] text-[#E8AA42]" />
             About Us
           </ListItem>
         </Link>
@@ -182,8 +181,8 @@ function NavList() {
         className="font-normal"
       >
         <Link to="/ContactUs">
-          <ListItem className="flex items-center gap-2 py-2 pr-4 text-black hover:bg-gray-600 hover:text-white focus:bg-amber-600">
-            <UserCircleIcon className="h-[18px] w-[18px] text-amber-600" />
+          <ListItem className="flex items-center gap-2 py-2 pr-4 text-black hover:bg-gray-600 hover:text-white focus:bg-[#E8AA42]">
+            <UserCircleIcon className="h-[18px] w-[18px] text-[#E8AA42]" />
             Contact Us
           </ListItem>
         </Link>
@@ -284,7 +283,7 @@ export default function Example() {
           >
             <svg
               xmlns="https://source.unsplash.com/MP0IUfwrn0A"
-              className="h-7 w-7 text-amber-600"
+              className="h-7 w-7 text-[#E8AA42]"
               viewBox="0 0 20 20"
               fill="currentColor"
             >
@@ -351,7 +350,7 @@ export default function Example() {
         >
           <Link to="/">
             {/* <img src={logo} alt="logo" width={150} height={50} /> */}
-            <p className="text-black">Arabic Recipes</p>
+            <p className="text-black">Give Life</p>
           </Link>
         </Typography>
         <div className="hidden lg:block">
@@ -362,7 +361,7 @@ export default function Example() {
             <Button
               onClick={() => handleSign()}
               size="sm"
-              className="bg-amber-600 hover:shadow-lg-amber-600"
+              className="bg-[#E8AA42] hover:shadow-lg-[#E8AA42]"
             >
               Sign Up
             </Button>

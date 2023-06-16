@@ -11,9 +11,12 @@ import About from "./pages/aboutPage/About";
 import SignUp from "./pages/SignUp";
 import LogIn from "./pages/Login";
 import Home from "./pages/users/Home";
-
+import ProfilePage from "./pages/users/Profile";
+import EditPrifile from "./components/users/EditProfile";
+import PaymentPage from "./pages/users/Payment";
 //------------------  Beneficiary  ----------------------- //
 import HomeBeneficiary from "./pages/beneficiary/HomeBeneficiary"
+import ProfileBeneficiary from "./pages/beneficiary/ProfileBeneficiary"
 
 
 
@@ -23,11 +26,11 @@ import HomeBeneficiary from "./pages/beneficiary/HomeBeneficiary"
 import Sidebar from "./pages/dashboard/Sidebar";
 import NavListMenuD from "./pages/dashboard/NavDashboard";
 import MainDashboard from "./pages/dashboard/MainDashboard";
-
+import EditAboutContact from "./pages/dashboard/EditAboutUs";
 import UserInfo from "./components/dashboard/UserInfo"
 import ApproveTable from "./components/dashboard/ApproveTable";
 import AdminInfo from "./components/dashboard/AdminInfo";
-
+import  Chat  from "./pages/dashboard/Chat";
 
 import axios from "axios";
 
@@ -100,6 +103,9 @@ export default function App() {
           <Route path="About" element={<About />} /> 
           <Route path="/SignUp/:type" element={<SignUp />} />
           <Route path="LogIn" element={<LogIn />} />
+          <Route path="ProfilePage" element={<ProfilePage />} />
+          <Route path="EditProfile" element={<EditPrifile />} />
+          <Route path="PaymentPage" element={<PaymentPage />} />
 
         </Routes>
         <Footer />
@@ -117,6 +123,8 @@ export default function App() {
           <Routes>
             <Route index element={<MainDashboard />} />
             <Route path="ListUser" element={<UserInfo />} />
+            <Route path="EditAboutContact" element={<EditAboutContact />} />
+            <Route path="Chat" element={<Chat />} />
             {/* <Route path="UserProfile" element={<UserProfile />} /> */}
             <Route path="ListRestaurant" element={<ApproveTable />} />
             <Route path="ListAdmin" element={<AdminInfo />} />
@@ -135,8 +143,7 @@ export default function App() {
           <Route index element={<HomeBeneficiary />} />
           <Route path="ContactUs" element={<Contact />} />
           <Route path="About" element={<About />} />
-          {/* <Route path="SignUp" element={<SignUp />} />
-          <Route path="LogIn" element={<LogIn />} /> */}
+          <Route path="ProfilePage" element={<ProfileBeneficiary />} />
         </Routes>
         <Footer />
       </Router>

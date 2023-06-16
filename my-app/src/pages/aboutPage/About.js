@@ -16,8 +16,8 @@ const About = () => {
 
     
     <BackimgAbout/>
-    <Testimonials/>
-    <TeamMember/> 
+    {/* <Testimonials/> */}
+    {/* <TeamMember/>  */}
     </>
   )
 }

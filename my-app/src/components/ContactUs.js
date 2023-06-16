@@ -1,10 +1,44 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 
 const ContactUs = () => {
   
+ const [userId ,setUserId] = useState()
+
+  const fetchProtectedData = async () => {
+    try {
+      const token = localStorage.getItem("auth");
+      if (token) {
+        const response = await axios.get("http://localhost:5000/protected", {
+          headers: {
+            Authorization: token,
+          },
+        });
+    
+        setUserId(response.data.user.id)
+
+    
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      console.log(false);
+    }
+  };
+
+
+
+
+
+
+
+  useEffect(() => {
+    if (localStorage.auth != null) {
+      fetchProtectedData()
+    }
+  }, []);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -12,19 +46,29 @@ const ContactUs = () => {
   const [message, setMessage] = useState("");
 
   const handleSubmit = async (event) => {
+
     event.preventDefault();
 
     // To passed as the data to be sent.
-    const contactMessage = {
-      name,
-      email,
-      phone,
-      message,
-    };
+  
 
+
+    try {
+      const contactMessage = {
+        name,
+        email,
+        phone,
+        message,
+      };
+
+      await axios.put(`http://localhost:5000/api/usersContactUs/${userId}`, contactMessage);
+    } catch (error) {
+      console.error("Error updating user:", error);
+    }
+  
     // try {
     //   const response = await axios.post(
-    //     "http://localhost:5000/contacts",
+    //     "http://localhost:5000/usersContactUs",
     //     contactMessage
     //   );
 

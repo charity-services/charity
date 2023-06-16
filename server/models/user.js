@@ -18,6 +18,10 @@ const userSchema = new Schema({
         type : String,
         required : true
     },
+    message:{
+        type : Array,
+        required : false
+    },
     role:{
         type : Number,
         required : true

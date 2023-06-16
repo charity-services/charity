@@ -67,13 +67,13 @@ function handleLogOut(){
     return (
       <Card className=" min-h-[calc(100vh)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-white-900/5 Sidebar bg-white sideBarDash">
         <div className="mb-2 p-4">
-        <Typography className="text-amber-500" variant="h5" color="blue-gray">
+        <Typography className="text-[#E8AA42]" variant="h5" color="blue-gray">
         <a> MA6A3MKOM </a>
           </Typography>
         </div>
         <List>
           <Link to='/'>
-          <ListItem className="hover:bg-amber-500">
+          <ListItem className="hover:bg-[#E8AA42]">
             <ListItemPrefix>
               <PresentationChartBarIcon className="h-5 w-5" />
             </ListItemPrefix>
@@ -83,7 +83,7 @@ function handleLogOut(){
 
 
           <Link to='/ListAdmin'>
-           <ListItem className="hover:bg-amber-500">
+           <ListItem className="hover:bg-[#E8AA42]">
             <ListItemPrefix>
             <Icon path={mdiShieldCrownOutline } size={1} />
             </ListItemPrefix>
@@ -92,7 +92,7 @@ function handleLogOut(){
           </Link>
 
            <Link to='/ListUser'>
-           <ListItem className="hover:bg-amber-500">
+           <ListItem className="hover:bg-[#E8AA42]">
             <ListItemPrefix>
             <Icon path={mdiAccountMultipleOutline} size={1} />
             </ListItemPrefix>
@@ -101,7 +101,7 @@ function handleLogOut(){
           </Link>
 
           <Link to='/ListRestaurant'>
-          <ListItem className="hover:bg-amber-500">
+          <ListItem className="hover:bg-[#E8AA42]">
             <ListItemPrefix>
             <Icon path={mdiSilverwareForkKnife} size={1} />
             </ListItemPrefix>
@@ -110,7 +110,7 @@ function handleLogOut(){
           </Link>
 
           <Link to='/EditAboutContact'>
-          <ListItem className="hover:bg-amber-500">
+          <ListItem className="hover:bg-[#E8AA42]">
             <ListItemPrefix>
             <Icon path={mdiInformationOutline} size={1} />
             </ListItemPrefix>
@@ -119,7 +119,7 @@ function handleLogOut(){
           </Link>
 
           <Link to='/AcceptTables'>
-          <ListItem className="hover:bg-amber-500">
+          <ListItem className="hover:bg-[#E8AA42]">
             <ListItemPrefix>
             <Icon path={mdiTableFurniture} size={1} />
             </ListItemPrefix>
@@ -128,7 +128,7 @@ function handleLogOut(){
           </Link>
 
          <Link to='/Chat'>
-         <ListItem className="hover:bg-amber-500">
+         <ListItem className="hover:bg-[#E8AA42]">
             <ListItemPrefix>
               <InboxIcon className="h-5 w-5" />
             </ListItemPrefix>

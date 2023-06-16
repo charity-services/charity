@@ -4,28 +4,19 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 //1- Create a new schema 
-const beneficiarySchema = new Schema({
+const aboutUsSchema = new Schema({
      
-    firstName: {
+    title: {
         type : String,
         required : true
     },
-    email: {
+    text: {
         type : String,
         required : true
     },
-    location:{
-        type : String,
-        required : true
-    },
-    price:{
-        type : String,
-        required : true
-    },
-  
     },
      {timestamp : true}
     )
 
     // 2- export the model with the schema
-    module.exports = mongoose.model('Beneficiarys',beneficiarySchema);
+    module.exports = mongoose.model('AboutUs',aboutUsSchema);
