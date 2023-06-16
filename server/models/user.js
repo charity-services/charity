@@ -26,6 +26,10 @@ const userSchema = new Schema({
         type : Number,
         required : true
     },
+    providersId:{
+        type : Array,
+        required : false
+    },
     },
      {timestamp : true}
     )

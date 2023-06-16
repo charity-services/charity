@@ -7,9 +7,42 @@ import {
   Button,
 } from "@material-tailwind/react";
 import Pagination from "@mui/material/Pagination";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState ,useEffect } from "react";
+import { Link,useNavigate } from "react-router-dom";
+
+import axios from "axios";
 export default function Cards() {
+
+ const [userId ,setUserId] = useState()
+  const fetchProtectedData = async () => {
+    try {
+      const token = localStorage.getItem("auth");
+      if (token) {
+        const response = await axios.get("http://localhost:5000/protected", {
+          headers: {
+            Authorization: token,
+          },
+        });
+        setUserId(response.data.user.id)
+      }
+    } catch (error) {
+      console.error(error);
+      localStorage.removeItem("auth");
+      window.location.href = "http://localhost:3000/Login";
+    } finally {
+      console.log(false);
+    }
+  };
+
+
+useEffect(()=>{
+  if(localStorage.auth != null){   
+    fetchProtectedData()
+  }
+},[])
+
+
+
   let x = [1, 1, 1, 1,1];
   const [FilterDataUsers, setFilterDataUsers] = useState(x);
 
@@ -36,6 +69,12 @@ export default function Cards() {
   const handlePageChangeUsers = (event, pageNumber) => {
     setCurrentPageUsers(pageNumber);
   };
+
+  const navigate = useNavigate();
+
+  function handlePriceSelection(price) {
+    navigate(`/PaymentPage/${price}`);
+  }
 
   return (
     <>
@@ -130,6 +169,7 @@ export default function Cards() {
                 <Button
                   className="mr-2 border mb-10 border-solid border-[#7C9070] border-2 text-[#7C9070] hover:bg-[#7C9070] hover:text-[#ffffff]"
                   variant="text"
+                  onClick={() => handlePriceSelection("10$")}
                 >
                   10$
                 </Button>
@@ -137,6 +177,7 @@ export default function Cards() {
                 <Button
                   className="border mb-10 border-solid border-[#7C9070] border-2 text-[#7C9070] hover:bg-[#7C9070] hover:text-[#ffffff]"
                   variant="text"
+                  onClick={() => handlePriceSelection("20$")}
                 >
                   20$
                 </Button>
@@ -144,6 +185,7 @@ export default function Cards() {
                 <Button
                   className="border mb-10 border-solid border-[#7C9070] border-2 text-[#7C9070] hover:bg-[#7C9070] hover:text-[#ffffff]"
                   variant="text"
+                  onClick={() => handlePriceSelection("30$")}
                 >
                   30$
                 </Button>

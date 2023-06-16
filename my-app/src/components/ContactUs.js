@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 const ContactUs = () => {
   
  const [userId ,setUserId] = useState()
+ const [userMessages ,setUserMessages] = useState([])
 
   const fetchProtectedData = async () => {
     try {
@@ -18,7 +19,7 @@ const ContactUs = () => {
         });
     
         setUserId(response.data.user.id)
-
+        setUserMessages(response.data.user.message)
     
       }
     } catch (error) {
@@ -43,7 +44,7 @@ const ContactUs = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [message, setMessage] = useState("");
+  const [message0, setMessage] = useState([]);
 
   const handleSubmit = async (event) => {
 
@@ -51,13 +52,11 @@ const ContactUs = () => {
 
     // To passed as the data to be sent.
   
-
-
+let message = userMessages 
+message.push(message0)
+console.log(message)
     try {
       const contactMessage = {
-        name,
-        email,
-        phone,
         message,
       };
 
@@ -187,7 +186,7 @@ const ContactUs = () => {
                         Phone Number
                       </h4>
                       <p className="text-body-color text-base">
-                        (+962)780577727
+                        (+962)799855850
                       </p>
                     </div>
                   </div>
@@ -207,7 +206,7 @@ const ContactUs = () => {
                         Email Address
                       </h4>
                       <p className="text-body-color text-base">
-                        info@Ma6a3mkom.com
+                        info@GiveLife.com
                       </p>
                     </div>
                   </div>
@@ -216,6 +215,7 @@ const ContactUs = () => {
               <div className="w-full px-4 lg:w-1/2 xl:w-5/12">
                 <div className="relative rounded-lg bg-white p-8 shadow-lg sm:p-12">
                   <form method="post" onSubmit={handleSubmit}>
+                   { localStorage.auth == null ? <>
                     <div className="mb-6">
                       <input
                         type="text"
@@ -243,12 +243,14 @@ const ContactUs = () => {
                         onChange={(event) => setPhone(event.target.value)} required
                       />
                     </div>
+                    </> :null
+                    }
                     <div className="mb-6">
                       <textarea
                         rows={6}
                         placeholder="Your Message"
                         className="text-body-color border-[f0f0f0] focus:border-primary w-full resize-none rounded border py-3 px-[14px] text-base outline-none focus-visible:shadow-none shadow-md transition duration-300"
-                        value={message}
+                        value={message0}
                         onChange={(event) => setMessage(event.target.value)} required
                       />
                     </div>

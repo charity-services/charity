@@ -84,7 +84,7 @@ const AdminInfo = () => {
         axios
           .put("http://localhost:5000/recordss/" + id)
           .then((response) => {
-            console.log(response.data);
+            allAdmins()
           })
           .catch((error) => console.log(error.message));
 
@@ -101,6 +101,7 @@ const AdminInfo = () => {
       };
 
       await axios.put(`http://localhost:5000/api/users/${userId}`, updatedUser);
+      allAdmins()
     } catch (error) {
       console.error("Error updating user:", error);
     }

@@ -1,6 +1,6 @@
 // import "./sidebar.css"
 import Icon from '@mdi/react';
-import { mdiSilverwareForkKnife } from '@mdi/js';
+import { mdiHandshakeOutline  } from '@mdi/js';
 import { mdiAccountMultipleOutline } from '@mdi/js';
 import { mdiInformationOutline,mdiShieldCrownOutline  } from '@mdi/js';
 import { UserContext } from '../../UserContext';
@@ -68,7 +68,7 @@ function handleLogOut(){
       <Card className=" min-h-[calc(100vh)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-white-900/5 Sidebar bg-white sideBarDash">
         <div className="mb-2 p-4">
         <Typography className="text-[#E8AA42]" variant="h5" color="blue-gray">
-        <a> MA6A3MKOM </a>
+        <a> Give Life </a>
           </Typography>
         </div>
         <List>
@@ -103,9 +103,9 @@ function handleLogOut(){
           <Link to='/ListRestaurant'>
           <ListItem className="hover:bg-[#E8AA42]">
             <ListItemPrefix>
-            <Icon path={mdiSilverwareForkKnife} size={1} />
+            <Icon path={mdiHandshakeOutline } size={1} />
             </ListItemPrefix>
-            <a style={{color:'black'}}> Restaurants List </a>
+            <a style={{color:'black'}}> beneficiary List </a>
           </ListItem>
           </Link>
 

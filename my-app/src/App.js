@@ -105,7 +105,7 @@ export default function App() {
           <Route path="LogIn" element={<LogIn />} />
           <Route path="ProfilePage" element={<ProfilePage />} />
           <Route path="EditProfile" element={<EditPrifile />} />
-          <Route path="PaymentPage" element={<PaymentPage />} />
+          <Route path="/PaymentPage/:price" element={<PaymentPage />} />
 
         </Routes>
         <Footer />

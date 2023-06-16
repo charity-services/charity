@@ -22,6 +22,10 @@ const beneficiarySchema = new Schema({
         type : String,
         required : true
     },
+    usersId:{
+        type : Array,
+        required : false
+    },
   
     },
      {timestamp : true}
