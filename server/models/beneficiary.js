@@ -6,11 +6,11 @@ const Schema = mongoose.Schema;
 //1- Create a new schema 
 const beneficiarySchema = new Schema({
      
-    firstName: {
+     Name: {
         type : String,
         required : true
     },
-    email: {
+    typeOfDonate: {
         type : String,
         required : true
     },
@@ -19,6 +19,25 @@ const beneficiarySchema = new Schema({
         required : true
     },
     price:{
+        type : String,
+        required : true
+    },
+    flag:{
+        type : Boolean,
+        default : false,
+        required : true
+    },
+    currentDonation:{
+        type : Number,
+        default : 0,
+        required : true
+    },
+    flag:{
+        type : Boolean,
+        default : false,
+        required : true
+    },
+    donationCase:{
         type : String,
         required : true
     },
