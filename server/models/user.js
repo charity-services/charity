@@ -30,6 +30,7 @@ const userSchema = new Schema({
         type : Array,
         required : false
     },
+    
     },
      {timestamp : true}
     )

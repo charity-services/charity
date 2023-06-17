@@ -1,47 +1,100 @@
 const Beneficiarys = require("../models/beneficiary");
 
-const newBeneficiary =  async (req, res) => {
 
-  const { recipes } = req.body;
-    const Recipes0 = new Recipes({ recipes: recipes});
-    const addRecipes = await Recipes0.save();
-    res.json([addRecipes]);
+const newBeneficiary=async(req,res)=>{
+  const{Name,b_id,donationType,location,price,currentDonation,flag,donationCase,usersId,des}=req.body
+  try{
+   const beneficiary=await Beneficiarys.create({Name,b_id,donationType,location,price,currentDonation,flag,donationCase,usersId,des})
+   res.status(200).json(beneficiary)
+  }
+catch(error){
+ res.status(400).json({error:error.message})
+}
+
+  }
+
+const allBeneficiarys = (req, res) => { 
+
+  Beneficiarys.find({ $and: [ { $expr: { $ne: ['$price', '$currentDonation'] } }, { flag: true } ]})
+    .then((data) => {   
+      res.json(data);
+    })
+    .catch((error) => {
+      errorHandler(error, req, res);
+    });
 };
 
-// const allRecipes = (req, res) => { 
-//   Recipes.find()
-//     .then((data) => {   
-//       res.json(data);
-//     })
-//     .catch((error) => {
-//       errorHandler(error, req, res);
-//     });
-// };
 
-// const deleteRecipe = async (req, res) => {
-//   const RecipeId = req.params.id;
-//    await Recipes.findByIdAndDelete(RecipeId);
-//    res.status(204).json(Recipes);
-// };
+const allUserCards = (req, res) => { 
+const userId = req.params.id;
+
+Beneficiarys.find({ $and: [ {usersId: { $in: userId }},{ $expr: { $ne: ['$price', '$currentDonation'] } } ]})
+    .then((data) => {   
+      res.json(data);
+    })
+    .catch((error) => {
+      errorHandler(error, req, res);
+    });
+};
+
+const allUserCardsF = (req, res) => { 
+const userId = req.params.id;
+
+Beneficiarys.find({ $and: [ {usersId: { $in: userId }},{ $expr: { $eq: ['$price', '$currentDonation'] } } ]})
+    .then((data) => {   
+      res.json(data);
+    })
+    .catch((error) => {
+      errorHandler(error, req, res);
+    });
+};
 
 
-// const updateRecipe = async (req, res) => {
-//   const RecipeId  = req.params.id;
-//   const updatedRecipeData = req.body;
+const allBeneficiarysAdmin = (req, res) => { 
+  Beneficiarys.find({ $and: [ { $expr: { $ne: ['$price', '$currentDonation'] } }, { flag: false } ]})
+    .then((data) => {   
+      res.json(data);
+    })
+    .catch((error) => {
+      errorHandler(error, req, res);
+    });
+};
 
-//  const newRecipe ={
-//     recipes:updatedRecipeData
-//   }
 
-//   const Recipe = await Recipes.findByIdAndUpdate(RecipeId, newRecipe, { new: true });
-//   console.log(Recipe)
-//   const updatedRecipe= await Recipe.save();
-//   res.json(updatedRecipe);
-// };
+const oneBeneficiary =  async (req, res) => {
+  const id = req.params.id;
+  const beneficiary = await Beneficiarys.find({ _id: id });
+  res.json(beneficiary);
+};
+
+
+const updateBeneficiary= async (req, res) => {
+  const beneficiaryId  = req.params.id;
+  const updatedBeneficiaryData = req.body;
+  const beneficiary = await Beneficiarys.findByIdAndUpdate(beneficiaryId, updatedBeneficiaryData, { new: true });  
+  const updatedBeneficiary = await beneficiary.save();
+  res.json(updatedBeneficiary);
+};
+
+
 
 module.exports = {
-    // allBeneficiarys,
+    allBeneficiarys,
+    updateBeneficiary,
+    oneBeneficiary,
     newBeneficiary,
+    allBeneficiarysAdmin,
+    allUserCards,
+    allUserCardsF,
     // updateBeneficiary,
     // deleteBeneficiary,
   }; 
+
+
+
+
+
+
+
+
+

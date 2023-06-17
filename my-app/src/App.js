@@ -31,6 +31,10 @@ import UserInfo from "./components/dashboard/UserInfo"
 import ApproveTable from "./components/dashboard/ApproveTable";
 import AdminInfo from "./components/dashboard/AdminInfo";
 import  Chat  from "./pages/dashboard/Chat";
+import PendingPosts from "./components/dashboard/PendingPosts";
+
+
+
 
 import axios from "axios";
 
@@ -105,7 +109,7 @@ export default function App() {
           <Route path="LogIn" element={<LogIn />} />
           <Route path="ProfilePage" element={<ProfilePage />} />
           <Route path="EditProfile" element={<EditPrifile />} />
-          <Route path="/PaymentPage/:price" element={<PaymentPage />} />
+          <Route path="/PaymentPage/:price/:id" element={<PaymentPage />} />
 
         </Routes>
         <Footer />
@@ -128,6 +132,7 @@ export default function App() {
             {/* <Route path="UserProfile" element={<UserProfile />} /> */}
             <Route path="ListRestaurant" element={<ApproveTable />} />
             <Route path="ListAdmin" element={<AdminInfo />} />
+            <Route path="AcceptTables" element={<PendingPosts />} />
           </Routes>
         </div>
       </Router>

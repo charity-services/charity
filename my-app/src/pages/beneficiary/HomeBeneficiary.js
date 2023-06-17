@@ -1,7 +1,68 @@
 import React from 'react'
+import { useState,useEffect } from 'react';
 import { Button } from "@material-tailwind/react";
+import axios from 'axios';
 
 const HomeBeneficiary = () => {
+  const [b_id ,setb_id] = useState()
+  const fetchProtectedData = async () => {
+    try {
+      const token = localStorage.getItem("auth");
+      if (token) {
+        const response = await axios.get("http://localhost:5000/protected", {
+          headers: {
+            Authorization: token,
+          },
+        });
+        setb_id(response.data.user.id)
+      }
+    } catch (error) {
+      console.error(error);
+      localStorage.removeItem("auth");
+      window.location.href = "http://localhost:3000/Login";
+    } finally {
+      console.log(false);
+    }
+  };
+
+
+useEffect(()=>{
+  if(localStorage.auth != null){   
+    fetchProtectedData()
+  }
+},[])
+
+console.log(b_id)
+const [Name,setName]=useState("")
+const [location,setLocation]=useState("")
+const [price,setPrice]=useState("")
+const [des,setdescription]=useState("")
+const [donationType,setdonationType]=useState("Money")
+const[donationCase,setdonationCase]=useState("Stray Animals")
+
+
+
+const handleSubmit = async (event) => {
+  event.preventDefault(); // Prevent the default behavior of the event
+  const formData = {
+    Name:Name,
+    location:location,
+    price:price,
+    des:des,
+    donationType:donationType,
+    donationCase:donationCase,
+    b_id:b_id
+  };
+  console.log(typeof formData.donationType)
+try {
+  const newPost=await axios.post('http://localhost:5000/api/beneficiarys',formData)
+  console.log(newPost.data)
+} catch (error) {
+  console.error(error.message)
+}
+
+}
+
   const contactMethods = [
     {
         icon:
@@ -232,7 +293,7 @@ src='https://images.unsplash.com/photo-1519052537078-e6302a4968d4?ixlib=rb-4.0.3
                     </div>
                     <div className="flex-1 mt-12 sm:max-w-lg lg:max-w-md">
                         <form
-                            onSubmit={(e) => e.preventDefault()}
+                            onSubmit={handleSubmit}
                             className="space-y-5"
                         >
                             <div>
@@ -242,6 +303,8 @@ src='https://images.unsplash.com/photo-1519052537078-e6302a4968d4?ixlib=rb-4.0.3
                                 <input
                                     type="text"
                                     required
+                                    value={Name}
+                                    onChange={(e)=>setName(e.target.value)}
                                     className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border-2 border-gray-300 p-2  focus:border-[#E8AA42] shadow-sm rounded-lg"
                                 />
                             </div>
@@ -252,32 +315,53 @@ src='https://images.unsplash.com/photo-1519052537078-e6302a4968d4?ixlib=rb-4.0.3
                                 <input
                                     type="text"
                                     required
+                                    value={location}
+                                    onChange={(e)=>setLocation(e.target.value)}
                                     className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border-2 border-gray-300 p-2  focus:border-[#E8AA42] shadow-sm rounded-lg"
                                 />
                             </div>
                             <div>
                                 <label className="font-medium">
-                                    Type of donate
+                                    Price
                                 </label>
                                 <input
                                     type="text"
                                     required
+                                    value={price}
+                                    onChange={(e)=>setPrice(e.target.value)}
                                     className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border-2 border-gray-300 p-2   focus:border-[#E8AA42] shadow-sm rounded-lg"
                                 />
                             </div>
-                            <div>
+<div>
                                 <label className="font-medium">
                                   Description
                                 </label>
-                                <textarea required className="w-full mt-2 h-36 px-3 py-2 border-2 border-gray-300 p-2 rounded-lg  resize-none appearance-none bg-transparent outline-none  focus:border-[#E8AA42] shadow-sm "></textarea>
+                                <textarea required 
+                                  value={des}
+                                  onChange={(e)=>setdescription(e.target.value)}
+                                className="w-full mt-2 h-36 px-3 py-2 border-2 border-gray-300 p-2 rounded-lg  resize-none appearance-none bg-transparent outline-none  focus:border-[#E8AA42] shadow-sm "></textarea>
                             </div>
-                            <select className="select border-2 border-gray-300 p-2 rounded-lg w-full max-w-xs focus:border-[#E8AA42]">
-  <option disabled selected>Donation case?</option>
-  <option>Han Solo</option>
-  <option>Greedo</option>
+                          
+                            <select 
+                              value={donationCase}
+                              onChange={(e)=>setdonationCase(e.target.value)}
+                            className="select border-2 border-gray-300 p-2 rounded-lg w-full max-w-xs focus:border-[#E8AA42]">
+  <option disabled selected>Donation case</option>
+  <option>Stray Animals</option>
+  <option>injured animals</option>
 </select>
+<select
+  value={donationType}
+  onChange={(e)=>setdonationType(e.target.value)}
+className="select border-2 border-gray-300 p-2 rounded-lg w-full max-w-xs focus:border-[#E8AA42]">
+  <option disabled selected>Type of Donation</option>
+  <option>Money</option>
+  <option>Others</option>
+</select>
+
       
                             <button
+                            type='submit'
                                 className="w-full px-4 py-2 text-white font-medium bg-[#E8AA42] hover:bg-[#7C9070] active:bg-[#7C9070] rounded-lg duration-150"
                             >
                                 Submit

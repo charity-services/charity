@@ -14,6 +14,11 @@ import axios from "axios";
 export default function Cards() {
 
  const [userId ,setUserId] = useState()
+ const [Beneficiarys ,setBeneficiarys] = useState([])
+
+ const [FilterDataUsers, setFilterDataUsers] = useState([]);
+ const [AllBeneficiarId,setAllBeneficiarId]= useState([])
+
   const fetchProtectedData = async () => {
     try {
       const token = localStorage.getItem("auth");
@@ -24,6 +29,14 @@ export default function Cards() {
           },
         });
         setUserId(response.data.user.id)
+      let  varId=response.data.user.id
+        try {
+          const response = await axios.get(`http://localhost:5000/api/users/${varId}`); 
+          console.log(response.data)
+          setAllBeneficiarId(response.data[0].providersId)
+        } catch (error) {
+          console.error("Error retrieving data:", error);
+        }
       }
     } catch (error) {
       console.error(error);
@@ -35,16 +48,74 @@ export default function Cards() {
   };
 
 
+  const allBeneficiarys = async () => {
+    try {
+      const response = await axios.get("http://localhost:5000/api/beneficiarys");
+      setBeneficiarys(response.data);
+    console.log(response.data)
+      setFilterDataUsers(response.data)
+    } catch (error) {
+      console.error("Error inserting data:", error);
+    }
+  };
+
+
+  // const handleShowUser = async () => {
+  //   console.log(userId)
+  //   try {
+  //     const response = await axios.get(`http://localhost:5000/api/users/${userId}`); 
+  //     console.log(response.data)
+  //     setAllPosts(response.data.providersId)
+  //   } catch (error) {
+  //     console.error("Error retrieving data:", error);
+  //   }
+    
+  // };
+
+
+
 useEffect(()=>{
   if(localStorage.auth != null){   
     fetchProtectedData()
   }
+  allBeneficiarys();
 },[])
+console.log(AllBeneficiarId)
+// useEffect(()=>{
+//    handleShowUser()
+// },[])
+// console.log(allPosts)
+
+
+const [yourSelectedStateValueType, setOptionType] = useState("");
+const [yourSelectedStateValueAddress, setOptionAddress] = useState("");
+  //-----------------------search------------------------//
+  const [searchTermUsers, setSearchTermUsers] = useState("");
 
 
 
-  let x = [1, 1, 1, 1,1];
-  const [FilterDataUsers, setFilterDataUsers] = useState(x);
+  //This function is work as filter the restaurants based on their name and update the searchTermUsers state whenever the user types in the search input field.
+  const filterDataByNameUsers = (searchTermUsers) => {
+    const filteredDataUsers = Beneficiarys?.filter((item) =>
+      item.Name.toLowerCase().includes(searchTermUsers.toLowerCase())
+    );
+    setFilterDataUsers(filteredDataUsers);
+    setCurrentPageUsers(1);
+    console.log(searchTermUsers);
+  };
+
+  function handleFind() {
+   
+    const filteredDataUsers = Beneficiarys?.filter((item) =>
+    item.donationType
+      ?.toLowerCase()
+      .includes(yourSelectedStateValueType.toLowerCase()) &&
+    item.donationCase
+      ?.toLowerCase()
+      .includes(yourSelectedStateValueAddress.toLowerCase())
+  );
+    setFilterDataUsers(filteredDataUsers);
+  }
 
   const [currentPageUsers, setCurrentPageUsers] = useState(1);
 
@@ -54,7 +125,7 @@ useEffect(()=>{
 
   let slicedArrayUsers;
 
-  const itemsPerPage = 4;
+  const itemsPerPage = 3;
 
   totalItemsUsers = FilterDataUsers.length;
 
@@ -72,12 +143,71 @@ useEffect(()=>{
 
   const navigate = useNavigate();
 
-  function handlePriceSelection(price) {
-    navigate(`/PaymentPage/${price}`);
+
+  function handlePriceSelection(price,currentDonation,id,usersId,PostId) {
+
+
+    navigate(`/PaymentPage/${price}/${id}`);
+
+    // navigate(`/PaymentPage/${price,id}`);
+    // UpdateBeneficiaryId(price,currentDonation,id,usersId,PostId)
+    // UpdateUserId(price,currentDonation,id,usersId,PostId)
   }
+
+  const UpdateUserId = async (price,currentDonation,id,usersId,PostId ) => {
+   
+    let newProvidersId = AllBeneficiarId
+    newProvidersId.push(PostId)
+    console.log(newProvidersId)
+    try {
+      const updatedUser = {
+        // Update the properties of the user as needed
+        providersId: newProvidersId,
+      };
+
+      await axios.put(`http://localhost:5000/api/users/${userId}`, updatedUser);
+      // allBeneficiarys();
+    } catch (error) {
+      console.error("Error updating user:", error);
+    }
+  };
+
+  const UpdateBeneficiaryId = async (price,currentDonation,id,usersId,PostId ) => {
+   
+    let newUsersId = usersId
+    newUsersId.push(userId)
+    try {
+      const updatedBeneficiary = {
+        // Update the properties of the user as needed
+        usersId: newUsersId,
+        currentDonation:price+currentDonation ,
+      };
+
+      await axios.put(`http://localhost:5000/api/beneficiarys/${PostId}`, updatedBeneficiary);
+      allBeneficiarys();
+    } catch (error) {
+      console.error("Error updating user:", error);
+    }
+  };
+
+// const [userAllDonatedPosts , setUserAllDonatedPosts] =useState([])
+
+// const handlePosts =async()=>{
+
+//   try {
+//     const response = await axios.get(`http://localhost:5000/api/beneficiarysCards/${userId}`); 
+//     console.log(response.data)
+//     setUserAllDonatedPosts(response.data)
+//   } catch (error) {
+//     console.error("Error retrieving data:", error);
+//   }
+
+
+// }
 
   return (
     <>
+    {/* <Button onClick={handlePosts}>Find all Posts</Button> */}
       <div className="flex justify-center mt-5 mb-5">
         <div className="w-full md:w-full mx-8 shadow shadow-black p-5 rounded-lg bg-white border-solid border-1 border-[#0e0d0d] transform transition duration-300 ">
           <div className="relative">
@@ -95,10 +225,10 @@ useEffect(()=>{
               type="text"
               placeholder="Search by listing, location, bedroom number..."
               className="px-8 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
-              // value={searchTermUsers}
+              value={searchTermUsers}
               onChange={(e) => {
-                // setSearchTermUsers(e.target.value);
-                // filterDataByNameUsers(e.target.value);
+                setSearchTermUsers(e.target.value);
+                filterDataByNameUsers(e.target.value);
               }}
             />
           </div>
@@ -109,30 +239,30 @@ useEffect(()=>{
             <div className="grid grid-cols-1  md:grid-cols-3 sm:grid-cols-1  gap-4 mt-4 ">
               <select
                 className="px-4 py-3 w-48 md:w-60 rounded-md bg-gray-100 border-[#E8AA42] border-2 focus:border-yellow-600 focus:bg-white focus:ring-0 text-sm appearance mr-5"
-                // value={yourSelectedStateValueType}
-                // onChange={(e) => setOptionType(e.target.value)}
+                value={yourSelectedStateValueType}
+                onChange={(e) => setOptionType(e.target.value)}
               >
-                <option value="">All Type</option>
-                <option value="arabian">arabian</option>
-                <option value="italian">italian</option>
+                <option value="">All donation Type</option>
+                <option value="Money">Money</option>
+                <option value="other">other</option>
               </select>
 
               <select
                 className="px-4 py-3 w-48 md:w-60 rounded-md bg-gray-100 border-[#E8AA42] border-2 focus:border-[#E8AA42] focus:bg-white focus:ring-0 text-sm appearance"
-                // value={yourSelectedStateValueAddress}
-                // onChange={(e) => setOptionAddress(e.target.value)}
+                value={yourSelectedStateValueAddress}
+                onChange={(e) => setOptionAddress(e.target.value)}
               >
-                <option value="">All Addresses</option>
-                <option value="amman">amman</option>
-                <option value="zarqa">zarqa</option>
-                <option value="balqa">balqa</option>
+                <option value="">all donation Case</option>
+                <option value="Stray Animals">Stray Animals</option>
+                <option value="injured animals">injured animals</option>
+            
               </select>
             </div>
 
             <Button
               className="border border-solid border-[#E8AA42] border-2 text-[#E8AA42] hover:bg-[#E8AA42] hover:text-[#ffffff]"
               variant="text"
-              // onClick={handleFind}
+              onClick={handleFind}
             >
               Find
             </Button>
@@ -141,7 +271,7 @@ useEffect(()=>{
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2  sm:grid-cols-1 xl:grid-cols-4    place-items-center">
-        {slicedArrayUsers.map(() => {
+        {slicedArrayUsers.map((POST) => {
           return (
             <Card className=" mt-10 w-[22rem] mr-3 ">
               <CardHeader color="blue-gray" className="relative h-57">
@@ -154,14 +284,20 @@ useEffect(()=>{
               <CardBody>
                 <div className="flex justify-between">
                   <Typography variant="h5" className="mb-2 text-[#7C9070]">
-                    Medical
+                    {POST.Name}
                   </Typography>
                   <Typography variant="h5" className="mb-2 text-[#7C9070]">
-                    $30/$100
+                    ${POST.currentDonation}/${POST.price}
                   </Typography>
                 </div>
                 <Typography>
-                  Donate for poor peoples treatment and medicine.
+                  {POST.des}
+                </Typography>
+                <Typography>
+                  {POST.donationType}
+                </Typography>
+                <Typography>
+                  {POST.donationCase}
                 </Typography>
               </CardBody>
               <CardFooter className="pt-0 flex justify-around">
@@ -169,7 +305,7 @@ useEffect(()=>{
                 <Button
                   className="mr-2 border mb-10 border-solid border-[#7C9070] border-2 text-[#7C9070] hover:bg-[#7C9070] hover:text-[#ffffff]"
                   variant="text"
-                  onClick={() => handlePriceSelection("10$")}
+                  onClick={() => handlePriceSelection(10,POST.currentDonation,POST.b_id,POST.usersId,POST._id)}
                 >
                   10$
                 </Button>
@@ -177,7 +313,7 @@ useEffect(()=>{
                 <Button
                   className="border mb-10 border-solid border-[#7C9070] border-2 text-[#7C9070] hover:bg-[#7C9070] hover:text-[#ffffff]"
                   variant="text"
-                  onClick={() => handlePriceSelection("20$")}
+                  onClick={() => handlePriceSelection(20,POST.currentDonation,POST.b_id,POST.usersId,POST._id)}
                 >
                   20$
                 </Button>
@@ -185,9 +321,9 @@ useEffect(()=>{
                 <Button
                   className="border mb-10 border-solid border-[#7C9070] border-2 text-[#7C9070] hover:bg-[#7C9070] hover:text-[#ffffff]"
                   variant="text"
-                  onClick={() => handlePriceSelection("30$")}
+                  onClick={() => handlePriceSelection(POST.price-POST.currentDonation,POST.currentDonation,POST.b_id,POST.usersId,POST._id)}
                 >
-                  30$
+                  {POST.price-POST.currentDonation}$
                 </Button>
 
               </CardFooter>
@@ -206,6 +342,57 @@ useEffect(()=>{
           />
         }
       </div>
+
+
+
+
+
+
+
+
+
+      {/* <div className="grid grid-cols-1 md:grid-cols-2  sm:grid-cols-1 xl:grid-cols-4    place-items-center">
+        {userAllDonatedPosts?.map((POST) => {
+          return (
+            <Card className=" mt-10 w-[22rem] mr-3 ">
+              <CardHeader color="blue-gray" className="relative h-57">
+                <img
+                  src="https://media.istockphoto.com/id/1303833951/photo/vet-doctor-examining-labrador-dog.jpg?b=1&s=612x612&w=0&k=20&c=9pXgoWE5ai_faijylnCLpyORSiGKG0jxqBsLlNdntE8="
+                  alt="img-blur-shadow"
+                  layout="fill"
+                />
+              </CardHeader>
+              <CardBody>
+                <div className="flex justify-between">
+                  <Typography variant="h5" className="mb-2 text-[#7C9070]">
+                    {POST.Name}
+                  </Typography>
+                  <Typography variant="h5" className="mb-2 text-[#7C9070]">
+                    ${POST.currentDonation}/${POST.price}
+                  </Typography>
+                </div>
+                <Typography>
+                  {POST.des}
+                </Typography>
+                <Typography>
+                  {POST.donationType}
+                </Typography>
+                <Typography>
+                  {POST.donationCase}
+                </Typography>
+              </CardBody>
+
+            </Card>
+          );
+        })}
+      </div> */}
+
+
+
+
+
+
+
     </>
   );
 }

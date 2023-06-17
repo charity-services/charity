@@ -93,7 +93,7 @@ const newUserLogin =  async (req , res) => {
     }
 if(validpassword){
 
-  const token = jwt.sign({ id: user[0]._id, username: user[0].firstName ,role : user[0].role ,message:user[0]?.message}, SECRETKEY, { expiresIn: '1h' });
+  const token = jwt.sign({ id: user[0]._id, username: user[0].firstName ,role : user[0].role ,message:user[0]?.message , email:email}, SECRETKEY, { expiresIn: '1h' });
 const user0=user[0]
   res.json({ token ,user0});
 }

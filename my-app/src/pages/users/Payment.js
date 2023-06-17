@@ -9,8 +9,8 @@ function PaymentPage() {
   const [expirationdate, setDateCard] = useState("");
   const [cvv, setCvc] = useState("");
   const [cardholder, setcardholder] = useState("");
-  const { id } = useParams();
-
+  const { price,id } = useParams();
+console.log(price,id)
   const handlePayment = () => {
     const cardNumber = document.getElementById("card-no").value;
     const cardRegex = /^(4\d{15}|5\d{15})$/;
