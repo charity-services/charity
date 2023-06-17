@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import axios from "axios";
 
@@ -10,7 +10,8 @@ function PaymentPage() {
   const [cvv, setCvc] = useState("");
   const [cardholder, setcardholder] = useState("");
   const { price,id } = useParams();
-console.log(price,id)
+  const navigate = useNavigate();
+
   const handlePayment = () => {
     const cardNumber = document.getElementById("card-no").value;
     const cardRegex = /^(4\d{15}|5\d{15})$/;
@@ -42,21 +43,21 @@ console.log(price,id)
         cardholder: cardholder,
       })
       .then(() => {
-        showSuccessAlert("Payment Successful");
+        showSuccessAlert();
       })
 
       .catch(() => {
-        showAlert("Payment failed. Please try again.");
+        showAlert("Donation failed. Please try again.");
       });
   };
 
-  const showSuccessAlert = () => {
+  const showSuccessAlert = (message) => {
     Swal.fire({
-      title: "Thank you for make a reservation through our website",
+      title: `Thank you for Donating ${price}$`,
       icon: "success",
       confirmButtonText: "OK",
     }).then(() => {
-      window.location.href = "http://localhost:3000/";
+      navigate("/")
     });
   };
 

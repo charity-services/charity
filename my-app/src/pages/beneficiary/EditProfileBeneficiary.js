@@ -3,7 +3,9 @@ import Box from '@mui/material/Box';
 import { Button } from "@material-tailwind/react";
 import Modal from '@mui/material/Modal';
 import { Input } from '@mui/material';
-
+import axios from 'axios';
+import { useState,useEffect } from 'react';
+import { useNavigate } from 'react-router';
 
 const style = {
     position: 'absolute',
@@ -19,12 +21,74 @@ const style = {
 
 
 function EditProfileBeneficiary() {
+  const navigate=useNavigate()
 const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+    /////////////////////
+    const [userId ,setUserId] = useState()
+    const [userData ,setUserData] = useState({})
+    const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
     
+    const fetchProtectedData = async () => {
+      try {
+        const token = localStorage.getItem("auth");
+        if (token) {
+          const response = await axios.get("http://localhost:5000/protected", {
+            headers: {
+              Authorization: token,
+            },
+          });
+          setUserId(response.data.user.id)
+          console.log(response.data.user.email)
+          let id=response.data.user.id
+          try {
+            const response = await axios.get(`http://localhost:5000/api/users/${id}`);
+            console.log(response.data)
+            console.log("tttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt")
+            setUserData(response.data[0])
+            setName(response.data[0].firstName)
+            setEmail(response.data[0].email)
+
+          } catch (error) {
+            console.error("Error retrieving data:", error);
+          }
+        }
+      } catch (error) {
+        console.error(error);
+        localStorage.removeItem("auth");
+        window.location.href = "http://localhost:3000/Login";
+      } finally {
+        console.log(false);
+      }
+    };
+  
+  
+  useEffect(()=>{
+    if(localStorage.auth != null){   
+      fetchProtectedData()
+    }
+  },[])
     
-    
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+console.log(name,email,userId )
+    axios
+      .put(`http://localhost:5000/api/users/${userId}`, {
+        firstName: name,
+        email: email,
+      })
+      .then(function (response) {
+        console.log(response);
+        // navigate("/ProfilePage")
+        window.location.href = 'http://localhost:3000/ProfilePage';
+
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
   return (
     <div>
     <Button  className="mb-10 border-solid border-[#7C9070] border-2 text-[#7C9070] hover:bg-[#7C9070] hover:text-[#ffffff]"
@@ -37,17 +101,17 @@ const [open, setOpen] = React.useState(false);
     >
       <Box sx={style}>
         <div className='flex flex-col'>
-        <Input id="email" type='email' placeholder=" New Email" variant="h6" component="h2" className='m-5'>
+        <Input onChange={(e)=>setName(e.target.value)} id="name" value={name}
+ type='text' variant="h6" component="h2" className='m-5'>
           Text in a modal
         </Input> <br></br>
-        <Input id="Password" type='Password' placeholder=" New Password" variant="h6" component="h2" className='m-5'>
+        <Input id="email" type='email'onChange={(e)=>setEmail(e.target.value)}  value={email} variant="h6" component="h2" className='m-5'>
           Text in a modal
         </Input> <br></br>
-        <Input id="phoneNumber" type='text' placeholder=" New Phone Number" variant="h6" component="h2" className='m-5'>
-          Text in a modal
-        </Input><br></br>
+      
 
         <Button
+        onClick={handleSubmit}
                 className=" m-5 border-solid border-[#E8AA42] border-2 text-[#E8AA42] hover:bg-[#E8AA42] hover:text-[#ffffff]"
                 variant="text"
               >

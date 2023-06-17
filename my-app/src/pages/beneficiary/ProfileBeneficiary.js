@@ -25,8 +25,18 @@ function ProfileBeneficiary() {
         });
         setUserId(response.data.user.id)
         console.log(response.data.user.email)
-        setUserData(response.data.user)
-      }
+        let id=response.data.user.id
+
+        try {
+          const response = await axios.get(`http://localhost:5000/api/users/${id}`);
+          console.log(response.data)
+          console.log("tttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt")
+          setUserData(response.data[0])
+        
+
+        } catch (error) {
+          console.error("Error retrieving data:", error);
+        }      }
     } catch (error) {
       console.error(error);
       localStorage.removeItem("auth");
@@ -42,24 +52,7 @@ useEffect(()=>{
     fetchProtectedData()
   }
 },[])
-//   const getData = async () => {
-// try {
-//   const token = localStorage.getItem("token") || " "
-//   console.log(token)
-//   const [respons]=await axios.get('http://localhost:5000/api/users/:id',{headers: {
-//     authorization: `Bearer ${token}`,
-//   },})
-//   const userData=respons.data;
-//   console.log(userData)
-// } catch (error) {
-//   console.error(error)
 
-// }
-  
-//   }
-//   useEffect(()=>{
-//     getData();
-//   },[])
   return (
     <>
       {/* component */}
@@ -114,7 +107,7 @@ useEffect(()=>{
                 <div className="flex flex-wrap justify-center">
                   <div className="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center mt-5">
                     <h3 className="text-4xl font-semibold leading-normal text-blueGray-700 mb-2">
-                      {userData.username}
+                      {userData.firstName}
                     </h3>
                   </div>
                   <div className="w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center">

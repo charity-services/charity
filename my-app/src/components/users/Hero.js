@@ -77,6 +77,7 @@ const Hero = () => {
               love, care, and respect. With your support, we can make a
               difference and provide a brighter future for animals in need.
             </p>
+            <p>Register Now</p>
             <div className="flex items-center">
               
               {

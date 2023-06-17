@@ -65,7 +65,7 @@ function ProfileMenu() {
     setIsMenuOpen(false)
 
 if(label == "Sign Out"){
-     updateSignStatus("signUp")
+    //  updateSignStatus("signUp")
     localStorage.setItem("SignStatus","signUp")
     localStorage.removeItem("auth");
     localStorage.removeItem("roles");
@@ -287,7 +287,7 @@ export default function ComplexNavbar() {
           as="a"
           className="mr-4 ml-2 cursor-pointer py-1.5 font-medium"
         >
-          ma6a3mkom
+          Give Life
         </Typography>
         </Link>
         <div className="absolute top-2/4 left-2/4 hidden -translate-x-2/4 -translate-y-2/4 lg:block">
