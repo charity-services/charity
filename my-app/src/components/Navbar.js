@@ -1,6 +1,7 @@
 import React, { useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../UserContext";
+import logo from '../Images/logooo.png'
 import Swal from "sweetalert2";
 
 import {
@@ -349,8 +350,8 @@ export default function Example() {
           className="mr-4 cursor-pointer py-1.5 lg:ml-2"
         >
           <Link to="/">
-            {/* <img src={logo} alt="logo" width={150} height={50} /> */}
-            <p className="text-black">Give Life</p>
+            <img className="animate-pulse" src={logo} alt="logo" width={150} height={50} />
+            {/* <p className="text-black">Give Life</p> */}
           </Link>
         </Typography>
         <div className="hidden lg:block">

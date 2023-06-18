@@ -36,8 +36,7 @@ import ApproveTable from "./components/dashboard/ApproveTable";
 import AdminInfo from "./components/dashboard/AdminInfo";
 import  Chat  from "./pages/dashboard/Chat";
 import PendingPosts from "./components/dashboard/PendingPosts";
-
-
+import PaymentsInfo from "./components/dashboard/Payment"
 
 
 import axios from "axios";
@@ -138,6 +137,7 @@ export default function App() {
             <Route path="ListRestaurant" element={<ApproveTable />} />
             <Route path="ListAdmin" element={<AdminInfo />} />
             <Route path="AcceptTables" element={<PendingPosts />} />
+            <Route path="PaymentsInfo" element={<PaymentsInfo />} />
           </Routes>
         </div>
       </Router>

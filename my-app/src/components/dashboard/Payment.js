@@ -4,39 +4,39 @@ import { mdiFileEdit } from "@mdi/js";
 import Pagination from "@mui/material/Pagination";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { mdiCheckDecagram  } from "@mdi/js";
+import { mdiHumanEdit } from "@mdi/js";
 import Swal from "sweetalert2";
 import { mdiSilverware } from "@mdi/js";
-import { mdiHandshakeOutline } from "@mdi/js";
+import { mdiShieldCrownOutline } from "@mdi/js";
 import { mdiAccountOutline } from "@mdi/js";
+const PaymentsInfo = () => {
+  const [persons, setPersons] = useState([]);
+  const [persons0, setPersons0] = useState([]);
 
-const PendingPosts = () => {
+  const [searchTermUsers, setSearchTermUsers] = useState("");
+  const [FilterDataUsers, setFilterDataUsers] = useState([]);
+  const [HandleP, setHandleP] = useState();
 
-    const [persons, setPersons] = useState([]);
-    const [persons0, setPersons0] = useState([]);
-  
-    const [searchTermUsers, setSearchTermUsers] = useState("");
-    const [FilterDataUsers, setFilterDataUsers] = useState([]);
-    const [HandleP, setHandleP] = useState();
-  
-    const allAdmins = async () => {
-        try {
-            const response = await axios.get("http://localhost:5000/api/beneficiarysAdmin");
-            setPersons(response.data);
-          console.log(response.data)
-          setFilterDataUsers(response.data)
-          } catch (error) {
-            console.error("Error inserting data:", error);
-          }
-        };
-     
-    
-      useEffect(() => {
-        allAdmins();
-      }, []);
-//-----------------------search------------------------//
+  const allUsers = async () => {
+    const token = localStorage.getItem("auth");
+    try {
+      // Send the data to the server using an HTTP POST request
+      const response = await axios.get("http://localhost:5000/api/payments");
+      console.log(response.data);
+      setPersons(response.data);
+      setFilterDataUsers(response.data);
+    } catch (error) {
+      console.error("Error inserting data:", error);
+    }
+  };
 
-const filterDataByNameUsers = (searchTermUsers) => {
+  useEffect(() => {
+    allUsers();
+   }, []);
+
+  //-----------------------search------------------------//
+
+  const filterDataByNameUsers = (searchTermUsers) => {
     const filteredDataUsers = persons.filter((item) =>
       item.firstName.toLowerCase().includes(searchTermUsers.toLowerCase())
     );
@@ -76,18 +76,19 @@ const filterDataByNameUsers = (searchTermUsers) => {
       confirmButtonText: "OK",
       cancelButtonText: "Cancel",
       icon: "warning",
-    }).then((result) => {
+    }).then( async (result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
         Swal.fire(` ${name} has been removed `, "", "success");
 
-        axios
-          .put("http://localhost:5000/recordss/" + id)
-          .then((response) => {
-            allAdmins()
-          })
-          .catch((error) => console.log(error.message));
-
+        
+          try {
+            await axios.delete(`http://localhost:5000/api/users/${id}`);
+            allUsers(); // Refresh the user list after deleting a user
+          } catch (error) {
+            console.error("Error deleting user:", error);
+          }
+      
         // window.location.reload();
       } else Swal.fire(" Cancelled", "", "error");
     });
@@ -97,11 +98,11 @@ const filterDataByNameUsers = (searchTermUsers) => {
     try {
       const updatedUser = {
         // Update the properties of the user as needed
-        flag: true,
+        role: roleN,
       };
 
-      await axios.put(`http://localhost:5000/api/beneficiarys/${userId}`, updatedUser);
-      allAdmins()
+      await axios.put(`http://localhost:5000/api/users/${userId}`, updatedUser);
+      allUsers()
     } catch (error) {
       console.error("Error updating user:", error);
     }
@@ -113,10 +114,10 @@ const filterDataByNameUsers = (searchTermUsers) => {
     let text1 = "";
     let text2 = "";
     if (role == "user") {
-      text1 = `Do you want to accept ${name} Post `;
+      text1 = `Do you want to switch ${name} to admin `;
       text2 = ` ${name} is now an admin `;
     } else {
-      text1 = `Do you want to accept ${name}' Post `;
+      text1 = `Do you want to switch ${name} to user `;
       text2 = ` ${name} is now a user `;
     }
     Swal.fire({
@@ -191,7 +192,7 @@ const filterDataByNameUsers = (searchTermUsers) => {
                   className="border-b border-gray-200 pr-28 pb-[10px] text-start dark:!border-navy-700"
                   style={{ cursor: "pointer" }}
                 >
-                  <p className="text-xs tracking-wide text-gray-600">location</p>
+                  <p className="text-xs tracking-wide text-gray-600">email</p>
                 </th>
                 <th
                   colSpan={1}
@@ -209,18 +210,9 @@ const filterDataByNameUsers = (searchTermUsers) => {
                   className="border-b border-gray-200 pr-28 pb-[10px] text-start dark:!border-navy-700"
                   style={{ cursor: "pointer" }}
                 >
-                  <p className="text-xs tracking-wide text-gray-600">role</p>
+                  <p className="text-xs tracking-wide text-gray-600">Card Holder</p>
                 </th>
 
-                <th
-                  colSpan={1}
-                  role="columnheader"
-                  title="Toggle SortBy"
-                  className="border-b border-gray-200 pr-10 pb-[10px] text-start dark:!border-navy-700"
-                  style={{ cursor: "pointer" }}
-                >
-                  <p className="text-xs tracking-wide text-gray-600">Approve</p>
-                </th>
 
                 <th
                   colSpan={1}
@@ -251,7 +243,7 @@ const filterDataByNameUsers = (searchTermUsers) => {
                       </div>
 
                       <p className="text-sm font-bold text-navy-700 dark:text-white ml-3">
-                        {e.Name}
+                        {e.firstName}
                       </p>
                     </td>
                     <td
@@ -261,7 +253,7 @@ const filterDataByNameUsers = (searchTermUsers) => {
                       <div className="flex items-center gap-2">
                         <div className="rounded-full text-xl">
                           <p className="text-sm font-bold text-navy-700 dark:text-white">
-                            {e.location}
+                            {e.email}
                           </p>
                         </div>
                       </div>
@@ -271,7 +263,7 @@ const filterDataByNameUsers = (searchTermUsers) => {
                       role="cell"
                     >
                       <p className="text-sm font-bold text-navy-700 dark:text-white">
-                        {e.price}
+                        {e.currentPrice} $
                       </p>
                     </td>
                     <td
@@ -279,40 +271,18 @@ const filterDataByNameUsers = (searchTermUsers) => {
                       role="cell"
                     >
                       <p className="text-sm font-bold text-navy-700 dark:text-white">
-                        
-                        
-                          <div className=" w-10 flex flex-col justify-center items-center">
-                            {" "}
-                            <Icon path={mdiHandshakeOutline} size={1} />{" "}
-                            <span>user</span>{" "}
-                          </div>
-                         
-
-                        
-                      
-
+                     {e.cardholder}
                       </p>
                     </td>
 
-                    <td
-                      className="pt-[14px] pb-[18px] sm:text-[14px]"
-                      role="cell"
-                    >
-                      <button
-                        onClick={() => handleUpdate(e._id, e.role, e.Name)}
-                      >
-                       
-                          <Icon color="blue" path={mdiCheckDecagram } size={1} />
-                       
-                      </button>
-                    </td>
+      
 
                     <td
                       className="pt-[14px] pb-[18px] sm:text-[14px]"
                       role="cell"
                     >
                       <button
-                        onClick={() => handleDelete(e.userid, e.username)}
+                        onClick={() => handleDelete(e._id, e.firstName)}
                       >
                         <Icon color="red" path={mdiDelete} size={1} />
                       </button>
@@ -338,4 +308,4 @@ const filterDataByNameUsers = (searchTermUsers) => {
   );
 };
 
-export default PendingPosts
+export default PaymentsInfo;

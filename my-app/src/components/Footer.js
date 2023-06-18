@@ -1,5 +1,6 @@
 import { Typography } from "@material-tailwind/react";
- 
+import logo from '../Images/logooo.png'
+
 const LINKS = [
   {
     title: "Quick Links",
@@ -22,9 +23,10 @@ const Footer = () => {
     <footer className="relative w-full  border-t border-blue-gray-50">
       <div className="mx-auto w-full max-w-7xl px-8 mt-8">
         <div className="grid grid-cols-1 justify-between gap-4 md:grid-cols-2">
-        <Typography variant="h5" className="mb-6 text-2xl font-bold text-gray-800">
+        {/* <Typography variant="h5" className="mb-6 text-2xl font-bold text-gray-800">
   Give Life
-</Typography>
+</Typography> */}
+            <img className="animate-pulse" src={logo} alt="logo" width={150} height={50} />
 
           <div className="grid grid-cols-3 justify-between gap-4">
             {LINKS.map(({ title, items }) => (

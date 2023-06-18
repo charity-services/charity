@@ -217,24 +217,7 @@ try {
           >
             <p className="text-xs tracking-wide text-gray-600">EMAIL</p>
           </th>
-          <th
-            colSpan={1}
-            role="columnheader"
-            title="Toggle SortBy"
-            className="border-b border-gray-200 pr-28 pb-[10px] text-start dark:!border-navy-700"
-            style={{ cursor: "pointer" }}
-          >
-            <p className="text-xs tracking-wide text-gray-600">PHONE</p>
-          </th>
-          <th
-            colSpan={1}
-            role="columnheader"
-            title="Toggle SortBy"
-            className="border-b border-gray-200 pr-28 pb-[10px] text-start dark:!border-navy-700"
-            style={{ cursor: "pointer" }}
-          >
-            <p className="text-xs tracking-wide text-gray-600">LOCATION</p>
-          </th>
+
 
           {/* <th
             colSpan={1}
@@ -280,7 +263,17 @@ return(
 
 <tbody role="rowgroup">
 <tr role="row">
-          <td className="pt-[14px] pb-[18px] sm:text-[14px]" role="cell">
+<td
+                      className="pt-[14px] pb-[18px] sm:text-[14px] flex items-center"
+                      role="cell"
+                    >
+          <div className="h-[30px] w-[30px] rounded-full">
+                        <img
+                          src="https://images.unsplash.com/photo-1506863530036-1efeddceb993?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2244&q=80"
+                          className="h-full w-full rounded-full"
+                          alt=""
+                        />
+                      </div>
             <p className="text-sm font-bold text-navy-700 dark:text-white">
               {e.firstName} 
             </p>
@@ -296,16 +289,6 @@ return(
                 {e.STATUSt}
               </p> */}
             </div>
-          </td>
-          <td className="pt-[14px] pb-[18px] sm:text-[14px]" role="cell">
-            <p className="text-sm font-bold text-navy-700 dark:text-white">
-              {e.number}
-            </p>
-          </td>
-          <td className="pt-[14px] pb-[18px] sm:text-[14px]" role="cell">
-          <p className="text-sm font-bold text-navy-700 dark:text-white">
-              {e.address}
-            </p>
           </td>
 
           {/* <td className="pt-[14px] pb-[18px] sm:text-[14px]" role="cell">

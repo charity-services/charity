@@ -1,8 +1,8 @@
 import React, { useEffect, useState ,useContext} from "react";
 import { Link } from "react-router-dom";
-import Logo1 from "../Images/animal-charity-logo-1.png"
+import Logo1 from "../Images/logooo.png";
 import axios from 'axios';
-import imageSign from "../Images/Dog_MagnifyingGlass.jpg"
+import imageSign from "../Images/signup2.jpg"
 import { UserContext } from '../UserContext';
 import { GoogleLogin, googleLogout, useGoogleLogin } from '@react-oauth/google';
 
@@ -143,13 +143,10 @@ export default function LogIn() {
     <div className="max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1">
         <div className="lg:w-1/2 xl:w-6/12 p-6 sm:p-12">
             <div>
-                <img src={Logo1}
-                    className="w-32 mx-auto" />
+            <img src={Logo1} className="w-32 mx-auto w-10 " />
             </div>
             <div className="mt-12 flex flex-col items-center">
-                <h1 className="text-2xl xl:text-3xl font-extrabold">
-                    Sign-In
-                </h1>
+              
                 
                 <div className="w-full flex-1 mt-8">
                     <div className="flex flex-col items-center ">

@@ -22,14 +22,16 @@ function ProfileBeneficiary() {
         console.log(response.data.user.id);
         let id = response.data.user.id;
         try {
-          const response = await axios.get(`http://localhost:5000/api/beneficiaryCardsP/${id}`); 
+          const response = await axios.get(
+            `http://localhost:5000/api/beneficiaryCardsP/${id}`
+          );
           const data = response.data;
-          console.log(data)
+          console.log(data);
 
           setCards(data);
         } catch (error) {
-          console.error('Error:', error);
-        } 
+          console.error("Error:", error);
+        }
         try {
           const response = await axios.get(
             `http://localhost:5000/api/users/${id}`
@@ -53,6 +55,7 @@ function ProfileBeneficiary() {
   };
 
   useEffect(() => {
+    console.log("majdi")
     if (localStorage.auth != null) {
       fetchProtectedData();
     }
@@ -129,7 +132,6 @@ function ProfileBeneficiary() {
                           change you made
                         </span>
                       </div>
-                    
                     </div>
                   </div>
                 </div>
@@ -153,11 +155,10 @@ function ProfileBeneficiary() {
                   <div className="flex flex-wrap justify-center">
                     <div className="w-full lg:w-9/12 px-4">
                       <p className="mb-4 text-lg leading-relaxed text-blueGray-700">
-                        An artist of considerable range, Jenna the name taken by
-                        Melbourne-raised, Brooklyn-based Nick Murphy writes,
-                        performs and records all of his own music, giving it a
-                        warm, intimate feel with a solid groove structure. An
-                        artist of considerable range.
+                        Helping animals is essential for maintaining the
+                        delicate balance of ecosystems and preserving
+                        biodiversity, ultimately benefiting the health and
+                        sustainability of our planet.
                       </p>
                     </div>
                   </div>
@@ -170,7 +171,7 @@ function ProfileBeneficiary() {
               <div className="flex flex-wrap items-center md:justify-between justify-center">
                 <div className="w-full md:w-6/12 px-4 mx-auto text-center">
                   <div className="text-sm text-blueGray-500 font-semibold py-1">
-                    Made with Love by{" "}
+                    Made with the support of {userData.firstName}
                   </div>
                 </div>
               </div>

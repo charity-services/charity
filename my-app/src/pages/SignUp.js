@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Logo1 from "../Images/animal-charity-logo-1.png";
+import Logo1 from "../Images/logooo.png";
 import { useState,useEffect } from 'react';
-import imageSign from "../Images/Dog_MagnifyingGlass.jpg"
+import imageSign from "../Images/signup2.jpg"
 import jwt from 'jwt-decode' // import dependency
 import axios from 'axios';
 import {useParams, useNavigate } from "react-router-dom";
@@ -121,13 +121,10 @@ export default function Signup() {
     <div className="max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1">
         <div className="lg:w-1/2 xl:w-6/12 p-6 sm:p-12">
         <div>
-                <img src={Logo1}
-                    className="w-32 mx-auto" />
+                <img src={Logo1} className="w-32 mx-auto w-10 " />
             </div>
             <div className="mt-12 flex flex-col items-center">
-                <h1 className="text-2xl xl:text-3xl font-extrabold">
-                    Sign-Up
-                </h1>
+                
                 <form onSubmit={handleSubmit}>
 
                 <div className="w-full flex-1 mt-8">
@@ -180,8 +177,8 @@ export default function Signup() {
              </form>
             </div>
         </div>
-        <div className="flex-1 bg-indigo-100 text-center hidden lg:flex login_img bg-cover bg-center bg-no-repeat ">
-        <img src={imageSign}/>
+        <div className="flex-1 bg-indigo-100 text-center  hidden lg:flex login_img bg-cover bg-center bg-no-repeat ">
+        <img  className="w-full" src={imageSign}/>
 
         </div>
     </div>

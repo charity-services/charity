@@ -6,6 +6,42 @@ import axios from "axios";
 
 function PaymentPage() {
 
+
+  const [userEmail ,setUserEmail] = useState()
+  const fetchProtectedData = async () => {
+    try {
+      const token = localStorage.getItem("auth");
+      if (token) {
+        const response = await axios.get("http://localhost:5000/protected", {
+          headers: {
+            Authorization: token,
+          },
+        });
+        setUserEmail(response.data.user.email)
+      }
+    } catch (error) {
+      console.error(error);
+      localStorage.removeItem("auth");
+      window.location.href = "http://localhost:3000/Login";
+    } finally {
+      console.log(false);
+    }
+  };
+
+
+useEffect(()=>{
+  if(localStorage.auth != null){   
+    fetchProtectedData()
+  }
+},[])
+
+
+
+
+
+
+
+
   const [cardnumber, setCardNumber] = useState("");
   const [expirationdate, setDateCard] = useState("");
   const [cvv, setCvc] = useState("");
@@ -17,7 +53,10 @@ function PaymentPage() {
   const [usersId, setUsersId] = useState([]);
   const [currentDonation, setCurrentDonation] = useState([]);
   const [AllBeneficiarId,setAllBeneficiarId]= useState([])
-
+  const [userData,setUserData]= useState({})
+  const [postData,setPostData]= useState({})
+  const [userName,setUserName]= useState("")
+ 
 
   const navigate = useNavigate();
 
@@ -26,6 +65,7 @@ function PaymentPage() {
       const response = await axios.get(`http://localhost:5000/api/users/${userId}`);
       console.log(response.data) 
       setAllBeneficiarId(response.data[0].providersId)
+      setUserName(response.data[0].firstName)
     } catch (error) {
       console.error("Error retrieving data:", error);
     }
@@ -36,8 +76,10 @@ function PaymentPage() {
     try {
       const response = await axios.get(`http://localhost:5000/api/beneficiarys/${PostId}`);
       console.log(response.data) 
+      setPostData(response.data[0])
       setUsersId(response.data[0].usersId)
       setCurrentDonation(response.data[0].currentDonation)
+      setUserData(response.data[0])
     } catch (error) {
       console.error("Error retrieving data:", error);
     }
@@ -48,6 +90,12 @@ function PaymentPage() {
       handleShowUser()
     }
     handleShowBeneficiarys()
+    if(userId == 0 ){
+      setUserName("user")  
+      setUserEmail("user@gmail.com")
+      
+      }
+    
   },[])
 
 
@@ -66,7 +114,7 @@ const UpdateBeneficiaryId = async (price,currentDonation,usersId,PostId ) => {
     };
 
     await axios.put(`http://localhost:5000/api/beneficiarys/${PostId}`, updatedBeneficiary);
-    allBeneficiarys();
+    // allBeneficiarys();
   } catch (error) {
     console.error("Error updating user:", error);
   }
@@ -120,6 +168,31 @@ const UpdateUserId = async (PostId ) => {
     if(userId != 0 ){
       UpdateUserId(PostId)   
      } 
+    const paymentData = {
+      firstName: userName,
+      email: userEmail,
+      cvv:parseInt(cvv),
+      PostId:PostId,
+      userId:userId == 0 ? "648ec805f2d5b6ccc707e916" : userId,
+      cardholder:cardholder,
+      currentPrice:parseInt(currentPrice),
+      donationCase:postData.donationCase,
+      donationType:postData.donationType,
+    };
+
+    console.log(paymentData)
+
+    try {
+      // Send the data to the server using an HTTP POST request
+      const response = await axios.post(
+        "http://localhost:5000/api/payment",
+        paymentData
+      );
+
+    } catch (error) {
+      console.error("Error inserting data:", error);
+    }
+
     showSuccessAlert("thanks for Donation",currentPrice)
   };
 

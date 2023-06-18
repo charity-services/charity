@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import { Button } from "@material-tailwind/react";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
+import EditProfileBeneficiary from "../beneficiary/EditProfileBeneficiary";
 
 function Profile() {
   const [activeTab, setActiveTab] = useState("tab1");
@@ -99,71 +100,87 @@ function Profile() {
 
   return (
     <>
-      <div className="h-screen bg-gray-200 ">
-        <div className="flex flex-col md:flex-row">
-          <div className="w-full md:w-1/2 ms:1/3">
-            {/* <!-- Left side content --> */}
-            <div className="h-screen bg-gray-200   pt-8">
-              <div>
-                <div className="w-full ms-8 mx-auto bg-white rounded-lg overflow-hidden shadow-lg">
-                  <div className="border-b px-4 pb-6">
-                    <div className="text-center my-4">
-                      <img
-                        className="h-32 w-32 rounded-full border-4 border-white mx-auto my-4"
-                        src="https://randomuser.me/api/portraits/women/21.jpg"
-                        alt=""
-                      />
+    {/* component */}
+    <link
+      rel="stylesheet"
+      href="https://demos.creative-tim.com/notus-js/assets/styles/tailwind.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://demos.creative-tim.com/notus-js/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css"
+    />
 
-                      <div className="py-2">
-                        <h3 className="font-bold text-2xl mb-1"></h3>
-                        {user[0]?.firstName}
-                      </div>
-                    </div>
-                    <div className="flex gap-2 px-2  justify-center ">
-                      <div className="space-x-8 flex justify-center mt-32 md:mt-0 md:justify-center">
-                        <Link to="/EditProfile">
-                          <Button
-                            className="border mb-10 border-solid border-[#7C9070] border-2 text-[#7C9070] hover:bg-[#7C9070] hover:text-[#ffffff]"
-                            variant="text"
-                          >
-                            Edit Profile
-                          </Button>
-                        </Link>
-                      </div>
-                    </div>
+    <main className="profile-page">
+      <section className="relative block h-500-px">
+        <div
+          className="absolute top-0 w-full h-full bg-center bg-cover"
+          style={{
+            backgroundImage:
+              'url("https://images.pexels.com/photos/459326/pexels-photo-459326.jpeg?auto=compress&cs=tinysrgb&w=600")',
+          }}
+        >
+          <span
+            id="blackOverlay"
+            className="w-full h-full absolute opacity-50 bg-black"
+          />
+        </div>
+        <div
+          className="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden h-70-px"
+          style={{ transform: "translateZ(0px)" }}
+        >
+          <svg
+            className="absolute bottom-0 overflow-hidden"
+            xmlns="http://www.w3.org/2000/svg"
+            preserveAspectRatio="none"
+            version="1.1"
+            viewBox="0 0 2560 100"
+            x={0}
+            y={0}
+          >
+            <polygon
+              className="text-blueGray-200 fill-current"
+              points="2560 0 2560 100 0 100"
+            />
+          </svg>
+        </div>
+      </section>
+      <section className="relative py-16 bg-blueGray-200">
+        <div className="container mx-auto px-4">
+          <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg -mt-64">
+            <div className="px-6">
+              <div className="flex flex-wrap justify-center">
+                <div className="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center mt-5">
+                  <h3 className="text-4xl font-semibold leading-normal text-blueGray-700 mb-2">
+               {user[0]?.firstName}
+                  </h3>
+                </div>
+                <div className="w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center">
+                  <div className="py-6 px-3 mt-32 sm:mt-0">
+                  <EditProfileBeneficiary/>
                   </div>
-                  <div className="px-4 py-4 w-full ">
-                    <div className="flex gap-2 items-center text-gray-800r mb-4">
-                      <div className="bg-white w-full shadow overflow-hidden sm:rounded-lg">
-                        <div className="border-t border-gray-200">
-                          <dl>
-                            <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                              <dt className="text-sm font-medium text-gray-500">
-                                Full name
-                              </dt>
-                              <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                {user[0]?.firstName}
-                              </dd>
-                            </div>
-                            <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                              <dt className="text-sm font-medium text-gray-500">
-                                Email address
-                              </dt>
-                              <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                {user[0]?.email}
-                              </dd>
-                            </div>
-                          </dl>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex"></div>
+                </div>
+                <div className="w-full lg:w-4/12 px-4 lg:order-1">
+                  <div className="flex justify-center py-4 lg:pt-4 pt-8">
+                   
+                  
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-          <div className="w-full md:w-1/2">
+              <div className="text-center">
+                <div className="mb-2 text-blueGray-600">
+                  <i className="fas fa-inbox mr-2 text-lg text-blueGray-400" />
+                  {user[0]?.email}
+                </div>
+
+                <div className="mb-2 text-blueGray-600">
+                  <i className="fas fa-phone mr-2 text-lg text-blueGray-400" />
+                  0797777777
+                </div>
+              </div>
+              {/* )} */}
+
+              {/* Donations cards  */}
+              <div className="w-full md:w-1/2">
             {/* <!-- Right side content --> */}
             <div className="w-full max-w-md mx-auto mt-8">
               <div className="flex border-b border-gray-300">
@@ -191,63 +208,36 @@ function Profile() {
                 }`}
               >
                 <>
-                  <h2 className="text-lg font-bold text-gray-800">
-                    current orders
+                  <h2 className="text-2xl font-bold text-gray-800">
+                    My Donations
                   </h2>
 
                   {userAllDonatedPosts?.map((Post) => {
                     return (
-                      <div class="justify-between  rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start ">
-                        <img
-                          src="https://f.hubspotusercontent20.net/hubfs/3390327/WordPress-Table-Reservation-plugin-1000x562-1.jpg"
-                          alt="product-image"
-                          class="w-full rounded-lg sm:w-40"
-                        />
-                        <div class="sm:ml-4 sm:flex sm:w-full sm:justify-between">
-                          <div class="mt-5 sm:mt-0">
-                            <h2 class="text-lg font-bold text-gray-900"></h2>
-                            <p class="mt-1 text-xs text-gray-700"></p>
-                          </div>
-                          <div class="mt-4 flex justify-between sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">
-                            <div class="flex items-center space-x-4">
-                              <p class="text-sm"> Name {Post.Name} </p>
-                              <p class="text-sm"> price {Post.price}</p>
-                              <p class="text-sm">
+                      <div className="flex flex-row flex-wrap   rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start ">
+                        
+                        <div className="sm:ml-4 sm:flex sm:w-full mt-5 ">
+                        
+                            <div className="flex flex-wrap gap-5 flex-column items-center">
+                              <div className="justify-start">
+                              <p className="text-lg my-5"><span className="font-bold">beneficiary : </span>  {Post.Name} </p>
+                              <p className="text-lg my-5"><span className="font-bold"> The amount needed : </span>{Post.price}</p>
+                              <p className="text-lg my-5">
                                 {" "}
-                                currentDonation {Post.currentDonation}{" "}
+                                <span className="text-md font-bold">  My Donation : </span>{Post.currentDonation}{" "}
                               </p>
-                              {/* <button onClick={() => {
-          Swal.fire({
-            title: 'Confirmation',
-            text: 'Are you sure you want to cancel yoir reservation?',
-            icon: 'question',
-            showCancelButton: true,
-            confirmButtonColor: 'orange',
-            confirmButtonText: 'OK',
-            cancelButtonColor: 'orange',
-            cancelButtonText: 'Cancel',
-          }).then((result) => {
-            if (result.isConfirmed) {
-
-              Swal.fire('Success!', 'Your order was cancelled successfully!', 'success');
-
-              setTimeout(function () {
-                // window.location.reload();
-              }, 2000);
-
-            } else if (result.dismiss === Swal.DismissReason.cancel) {
-              // User clicked Cancel or closed the modal
-              Swal.fire('Cancelled', 'cancelled.', 'error');
-            }
-          });
-        }}>
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5 cursor-pointer duration-150 hover:text-red-500">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button> */}
-                            </div>
+                              </div>
                           </div>
                         </div>
+                        <div className="mt-10 py-10 border-t border-blueGray-200 text-center">
+                  <div className="flex flex-wrap justify-center">
+                    <div className="w-full lg:w-9/12 px-4">
+                      <p className="mb-4 text-lg leading-relaxed text-blueGray-700">
+                      <span className="font-bold" style={{color:'#219d80'}}>GIVE LIFE</span> THANK YOU FOR YOUR DONATION
+                      </p>
+                    </div>
+                  </div>
+                </div>
                       </div>
                     );
                   })}
@@ -260,73 +250,65 @@ function Profile() {
                 }`}
               >
                 <>
-                  <h2 className="text-lg font-bold text-gray-800">
-                    previous orders
+                  <h2 className="text-2xl font-bold text-gray-800">
+                    Previous Donations
                   </h2>
 
                   {userAllDonatedPostsF?.map((Post) => {
                     return (
-                      <div class="justify-between  rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start ">
-                        <img
-                          src="https://f.hubspotusercontent20.net/hubfs/3390327/WordPress-Table-Reservation-plugin-1000x562-1.jpg"
-                          alt="product-image"
-                          class="w-full rounded-lg sm:w-40"
-                        />
-                        <div class="sm:ml-4 sm:flex sm:w-full sm:justify-between">
-                          <div class="mt-5 sm:mt-0">
-                            <h2 class="text-lg font-bold text-gray-900"></h2>
-                            <p class="mt-1 text-xs text-gray-700"></p>
-                          </div>
-                          <div class="mt-4 flex justify-between sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">
-                            <div class="flex items-center space-x-4">
-                              <p class="text-sm"> Name {Post.Name} </p>
-                              <p class="text-sm"> price {Post.price}</p>
-                              <p class="text-sm">
+                   <div className="flex flex-row flex-wrap   rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start ">
+                        
+                        <div className="sm:ml-4 sm:flex sm:w-full mt-5 ">
+                        
+                            <div className="flex flex-wrap gap-5 flex-column items-center">
+                              <div className="justify-start">
+                              <p className="text-lg my-5"><span className="font-bold">beneficiary : </span>  {Post.Name} </p>
+                              <p className="text-lg my-5"><span className="font-bold"> The amount needed : </span>{Post.price}</p>
+                              <p className="text-lg my-5">
                                 {" "}
-                                currentDonation {Post.currentDonation}{" "}
+                                <span className="text-md font-bold">  My Donation : </span>{Post.currentDonation}{" "}
                               </p>
-                              {/* <button onClick={() => {
-                              Swal.fire({
-                                title: 'Confirmation',
-                                text: 'Are you sure you want to cancel yoir reservation?',
-                                icon: 'question',
-                                showCancelButton: true,
-                                confirmButtonColor: 'orange',
-                                confirmButtonText: 'OK',
-                                cancelButtonColor: 'orange',
-                                cancelButtonText: 'Cancel',
-                              }).then((result) => {
-                                if (result.isConfirmed) {
-
-                                  Swal.fire('Success!', 'Your order was cancelled successfully!', 'success');
-
-                                  setTimeout(function () {
-                                    // window.location.reload();
-                                  }, 2000);
-
-                                } else if (result.dismiss === Swal.DismissReason.cancel) {
-                                  // User clicked Cancel or closed the modal
-                                  Swal.fire('Cancelled', 'cancelled.', 'error');
-                                }
-                              });
-                            }}>
-                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5 cursor-pointer duration-150 hover:text-red-500">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                              </svg>
-                            </button> */}
-                            </div>
+                              </div>
                           </div>
                         </div>
+                        <div className="mt-10 py-10 border-t border-blueGray-200 text-center">
+                  <div className="flex flex-wrap justify-center">
+                    <div className="w-full lg:w-9/12 px-4">
+                      <p className="mb-4 text-lg leading-relaxed text-blueGray-700">
+                      <span className="font-bold" style={{color:'#219d80'}}> GIVE LIFE</span> THANK YOU FOR YOUR DONATION
+                      </p>
+                    </div>
+                  </div>
+                </div>
                       </div>
+                      
                     );
                   })}
+                  
                 </>
               </div>
             </div>
           </div>
+            </div>
+          </div>
         </div>
-      </div>
-    </>
+        
+        <footer className="relative bg-blueGray-200 pt-8 pb-6 mt-8">
+          <div className="container mx-auto px-4">
+            <div className="flex flex-wrap items-center md:justify-between justify-center">
+              <div className="w-full md:w-6/12 px-4 mx-auto text-center">
+                <div className="text-sm text-blueGray-500 font-semibold py-1">
+                  Made with the support of {user[0]?.firstName}
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </footer>
+      </section>
+    </main>
+  </>
+   
   );
 }
 

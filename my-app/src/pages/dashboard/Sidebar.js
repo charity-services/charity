@@ -6,6 +6,7 @@ import { mdiInformationOutline,mdiShieldCrownOutline  } from '@mdi/js';
 import { UserContext } from '../../UserContext';
 import React,{useState,useEffect,useContext} from "react";
 import { mdiTableFurniture } from '@mdi/js';
+import { mdiCashClock } from '@mdi/js';
 
 import {
     Card,
@@ -124,6 +125,15 @@ function handleLogOut(){
             <Icon path={mdiTableFurniture} size={1} />
             </ListItemPrefix>
             <a style={{color:'black'}}> Pending Posts </a>
+          </ListItem>
+          </Link>
+
+          <Link to='/PaymentsInfo'>
+          <ListItem className="hover:bg-[#E8AA42]">
+            <ListItemPrefix>
+            <Icon path={mdiCashClock} size={1} />
+            </ListItemPrefix>
+            <a style={{color:'black'}}> payments </a>
           </ListItem>
           </Link>
 

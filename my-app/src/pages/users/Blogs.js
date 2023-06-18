@@ -1,6 +1,7 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import hero from "../../Images/about.jpg";
-import { useState } from "react";
+import hero from "../../Images/blog.jpg";
+import axios from "axios";
 
 const Blog = () => {
   const [blogPosts, setBlogPosts] = useState([]);
@@ -9,7 +10,28 @@ const Blog = () => {
     content: "",
     author: "",
     tags: "",
+    date: new Date().toISOString().split("T")[0],
   });
+  const [showForm, setShowForm] = useState(false);
+
+      
+  const fetchBlogPosts = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:5000/api/getAllBlogs"
+      );
+      setBlogPosts(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
+  useEffect(() => {
+
+
+    fetchBlogPosts();
+  }, []);
 
   const handleInputChange = (event) => {
     setFormData({
@@ -18,32 +40,41 @@ const Blog = () => {
     });
   };
 
-  const [showForm, setShowForm] = useState(false);
-
-  const handleCreatePost = () => {
+  const handleCreatePost = async () => {
     const newPost = {
       _id: blogPosts.length + 1,
       ...formData,
-      date: new Date(),
     };
 
-    setBlogPosts([...blogPosts, newPost]);
-    setFormData({
-      title: "",
-      content: "",
-      author: "",
-      tags: "",
+    newPost.date = new Date(newPost.date).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
     });
+
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/createNewBlog",
+        newPost
+      );
+      fetchBlogPosts()
+      console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+
     setShowForm(false);
   };
-
+  const handleCancel = () => {
+    setShowForm(false);
+  };
   return (
     <>
       <div
-        className="bg-cover bg-center h-screen "
+        className="bg-cover bg-center h-screen"
         style={{
           backgroundImage: `url(${hero})`,
-          height: "400px",
+          height: "500px",
         }}
       >
         <div className="flex items-center justify-center h-full bg-black bg-opacity-10">
@@ -77,6 +108,7 @@ const Blog = () => {
           </div>
         </div>
       </div>
+
       <div className="grid gap-10 lg:gap-16 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mb-10 mx-6">
         {blogPosts.map((post) => (
           <div
@@ -86,7 +118,7 @@ const Blog = () => {
             <div className="container max-w-4xl px-10 py-6 mx-auto rounded-lg shadow-lg dark:bg-gray-900">
               <div className="flex items-center justify-between">
                 <span className="text-sm dark:text-gray-400">
-                  {post.date.toLocaleDateString("en-US", {
+                  {new Date(post.date).toLocaleDateString("en-US", {
                     year: "numeric",
                     month: "long",
                     day: "numeric",
@@ -98,19 +130,22 @@ const Blog = () => {
               </div>
               <div className="mt-3">
                 <span className="text-2xl font-bold">{post.title}</span>
-                <p className="mt-2">{post.content}</p>
+                <div className={`mt-2 truncate`}>
+                  <p>{post.content}</p>
+                </div>
               </div>
               <div className="flex items-center justify-between mt-4">
-                <span className="dark:text-violet-400">Read more</span>
+                <div className="w-full">
+                  <div>
+                    <p className="dark:text-violet-400">{post.author}</p>
+                  </div>
+                </div>
                 <div className="flex items-center">
                   <img
                     src="https://source.unsplash.com/50x50/?portrait"
                     alt="avatar"
                     className="object-cover w-10 h-10 mx-4 rounded-full dark:bg-gray-500"
                   />
-                  <span className="hover:underline dark:text-gray-400">
-                    {post.author}
-                  </span>
                 </div>
               </div>
             </div>
@@ -118,7 +153,6 @@ const Blog = () => {
         ))}
       </div>
 
-      {/* Form */}
       <div className="flex items-center justify-center mt-8">
         <button
           onClick={() => setShowForm(true)}
@@ -127,6 +161,7 @@ const Blog = () => {
           Create New Post
         </button>
       </div>
+
       {showForm && (
         <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-500 bg-opacity-50 z-50">
           <div className="bg-white p-8 rounded shadow-md z-50">
@@ -158,6 +193,7 @@ const Blog = () => {
                 <textarea
                   id="content"
                   name="content"
+                  maxLength={50}
                   value={formData.content}
                   onChange={handleInputChange}
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -195,18 +231,18 @@ const Blog = () => {
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 />
               </div>
-              <div className="flex justify-end">
+              <div className="flex items-center justify-between">
                 <button
                   type="button"
                   onClick={handleCreatePost}
-                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline z-20"
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                 >
-                  Create
+                  Create Post
                 </button>
                 <button
                   type="button"
-                  onClick={() => setShowForm(false)}
-                  className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-4"
+                  onClick={handleCancel}
+                  className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                 >
                   Cancel
                 </button>
