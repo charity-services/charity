@@ -106,7 +106,7 @@ console.log(message)
             <nav className="text-white mb-8">
               <ol className="list-none p-0 inline-flex">
                 <li className="flex items-center">
-                  <Link to="/" className="text-amber-500">
+                  <Link to="/" style={{color:"#219D80"}}>
                     Home
                   </Link>
                   <svg
@@ -258,6 +258,7 @@ console.log(message)
                       <button
                         type="submit"
                         className="bg-amber-500 border-primary w-full rounded border p-3 text-white transition hover:bg-opacity-90"
+                        style={{backgroundColor:"#219D80"}}
                       >
                         Send Message
                       </button>

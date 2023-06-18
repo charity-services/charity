@@ -1,19 +1,14 @@
-import EditProfileBeneficiary from './EditProfileBeneficiary'
-import { useState, useEffect } from 'react'
-import * as React from 'react';
-import { useParams } from "react-router-dom";
-
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
-import axios from 'axios';
-
+import EditProfileBeneficiary from "./EditProfileBeneficiary";
+import { useState, useEffect } from "react";
+import * as React from "react";
+import axios from "axios";
+import Cards from "./CardsBeneficiary";
 
 function ProfileBeneficiary() {
-  const [userId ,setUserId] = useState()
-  const [userData ,setUserData] = useState({})
-  
+  const [cards, setCards] = useState([]);
+  const [userId, setUserId] = useState();
+  const [userData, setUserData] = useState({});
+
   const fetchProtectedData = async () => {
     try {
       const token = localStorage.getItem("auth");
@@ -23,20 +18,31 @@ function ProfileBeneficiary() {
             Authorization: token,
           },
         });
-        setUserId(response.data.user.id)
-        console.log(response.data.user.email)
-        let id=response.data.user.id
-
+        setUserId(response.data.user.id);
+        console.log(response.data.user.id);
+        let id = response.data.user.id;
         try {
-          const response = await axios.get(`http://localhost:5000/api/users/${id}`);
-          console.log(response.data)
-          console.log("tttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt")
-          setUserData(response.data[0])
-        
+          const response = await axios.get(`http://localhost:5000/api/beneficiaryCardsP/${id}`); 
+          const data = response.data;
+          console.log(data)
 
+          setCards(data);
+        } catch (error) {
+          console.error('Error:', error);
+        } 
+        try {
+          const response = await axios.get(
+            `http://localhost:5000/api/users/${id}`
+          );
+          console.log(response.data);
+          console.log(
+            "tttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt"
+          );
+          setUserData(response.data[0]);
         } catch (error) {
           console.error("Error retrieving data:", error);
-        }      }
+        }
+      }
     } catch (error) {
       console.error(error);
       localStorage.removeItem("auth");
@@ -46,12 +52,11 @@ function ProfileBeneficiary() {
     }
   };
 
-
-useEffect(()=>{
-  if(localStorage.auth != null){   
-    fetchProtectedData()
-  }
-},[])
+  useEffect(() => {
+    if (localStorage.auth != null) {
+      fetchProtectedData();
+    }
+  }, []);
 
   return (
     <>
@@ -66,13 +71,12 @@ useEffect(()=>{
       />
 
       <main className="profile-page">
-
         <section className="relative block h-500-px">
           <div
             className="absolute top-0 w-full h-full bg-center bg-cover"
             style={{
               backgroundImage:
-                'url("https://images.pexels.com/photos/459326/pexels-photo-459326.jpeg?auto=compress&cs=tinysrgb&w=600")'
+                'url("https://images.pexels.com/photos/459326/pexels-photo-459326.jpeg?auto=compress&cs=tinysrgb&w=600")',
             }}
           >
             <span
@@ -119,22 +123,13 @@ useEffect(()=>{
                     <div className="flex justify-center py-4 lg:pt-4 pt-8">
                       <div className="mr-4 p-3 text-center">
                         <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
-                          22
+                          {cards?.length}
                         </span>
-                        <span className="text-sm text-blueGray-400">Friends</span>
-                      </div>
-                      <div className="mr-4 p-3 text-center">
-                        <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
-                          10
+                        <span className="text-sm text-blueGray-400">
+                          change you made
                         </span>
-                        <span className="text-sm text-blueGray-400">Photos</span>
                       </div>
-                      <div className="lg:mr-4 p-3 text-center">
-                        <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
-                          89
-                        </span>
-                        <span className="text-sm text-blueGray-400">Comments</span>
-                      </div>
+                    
                     </div>
                   </div>
                 </div>
@@ -152,76 +147,18 @@ useEffect(()=>{
                 {/* )} */}
 
                 {/* Donations cards  */}
-                <div className='flex flex-row flex-wrap'>
-                  <Card sx={{ maxWidth: 345, margin: 3 }}>
-                    <CardMedia
-                      sx={{ height: 140 }}
-                      image="https://images.pexels.com/photos/459326/pexels-photo-459326.jpeg?auto=compress&cs=tinysrgb&w=600"
-                      title=""
-                    />
-                    <CardContent>
-                      <Typography gutterBottom variant="h5" component="div">
-                        Cause
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary">
-                        Lizards are a widespread group of squamate reptiles, with over 6,000
-                        species, ranging across all continents except Antarctica
-                      </Typography>
-                    </CardContent>
-                    <div className="w-75 bg-gray-200 rounded-full h-2.5 mb-4 dark:bg-gray-700" style={{ marginRight: '1rem', marginLeft: '1rem' }}>
-                      <div className="bg-yellow-400 h-2.5 rounded-full" style={{ width: "45%" }} />
-                    </div>
-
-                  </Card>
-                  <Card sx={{ maxWidth: 345, margin: 3 }}>
-                    <CardMedia
-                      sx={{ height: 140 }}
-                      image="https://images.pexels.com/photos/459326/pexels-photo-459326.jpeg?auto=compress&cs=tinysrgb&w=600"
-                      title=""
-                    />
-                    <CardContent>
-                      <Typography gutterBottom variant="h5" component="div">
-                        Cause
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary">
-                        Lizards are a widespread group of squamate reptiles, with over 6,000
-                        species, ranging across all continents except Antarctica
-                      </Typography>
-                    </CardContent>
-
-                  </Card>
-                  <Card sx={{ maxWidth: 345, margin: 3 }}>
-                    <CardMedia
-                      sx={{ height: 140 }}
-                      image="https://images.pexels.com/photos/459326/pexels-photo-459326.jpeg?auto=compress&cs=tinysrgb&w=600"
-                      title=""
-                    />
-                    <CardContent>
-                      <Typography gutterBottom variant="h5" component="div">
-                        Cause
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary">
-                        Lizards are a widespread group of squamate reptiles, with over 6,000
-                        species, ranging across all continents except Antarctica
-                      </Typography>
-                    </CardContent>
-
-                  </Card>
-
-                </div>
-
-
+                <Cards />
+                {/* Donations cards  */}
                 <div className="mt-10 py-10 border-t border-blueGray-200 text-center">
                   <div className="flex flex-wrap justify-center">
                     <div className="w-full lg:w-9/12 px-4">
                       <p className="mb-4 text-lg leading-relaxed text-blueGray-700">
                         An artist of considerable range, Jenna the name taken by
                         Melbourne-raised, Brooklyn-based Nick Murphy writes,
-                        performs and records all of his own music, giving it a warm,
-                        intimate feel with a solid groove structure. An artist of
-                        considerable range.
+                        performs and records all of his own music, giving it a
+                        warm, intimate feel with a solid groove structure. An
+                        artist of considerable range.
                       </p>
-
                     </div>
                   </div>
                 </div>
@@ -233,11 +170,7 @@ useEffect(()=>{
               <div className="flex flex-wrap items-center md:justify-between justify-center">
                 <div className="w-full md:w-6/12 px-4 mx-auto text-center">
                   <div className="text-sm text-blueGray-500 font-semibold py-1">
-                    Made with{" "}
-                    Love
-                    by{" "}
-
-
+                    Made with Love by{" "}
                   </div>
                 </div>
               </div>
@@ -246,8 +179,7 @@ useEffect(()=>{
         </section>
       </main>
     </>
-
-  )
+  );
 }
 
-export default ProfileBeneficiary
+export default ProfileBeneficiary;

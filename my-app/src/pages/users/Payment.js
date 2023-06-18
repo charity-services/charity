@@ -1,18 +1,98 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import axios from "axios";
 
 
 function PaymentPage() {
+
   const [cardnumber, setCardNumber] = useState("");
   const [expirationdate, setDateCard] = useState("");
   const [cvv, setCvc] = useState("");
   const [cardholder, setcardholder] = useState("");
-  const { price,id } = useParams();
+  const { currentPrice,ProviderId,PostId,userId } = useParams();
+
+  console.log(currentPrice,ProviderId,PostId,userId)
+
+  const [usersId, setUsersId] = useState([]);
+  const [currentDonation, setCurrentDonation] = useState([]);
+  const [AllBeneficiarId,setAllBeneficiarId]= useState([])
+
+
   const navigate = useNavigate();
 
+  const handleShowUser = async () => {
+    try {
+      const response = await axios.get(`http://localhost:5000/api/users/${userId}`);
+      console.log(response.data) 
+      setAllBeneficiarId(response.data[0].providersId)
+    } catch (error) {
+      console.error("Error retrieving data:", error);
+    }
+    
+  };
+
+  const handleShowBeneficiarys = async () => {
+    try {
+      const response = await axios.get(`http://localhost:5000/api/beneficiarys/${PostId}`);
+      console.log(response.data) 
+      setUsersId(response.data[0].usersId)
+      setCurrentDonation(response.data[0].currentDonation)
+    } catch (error) {
+      console.error("Error retrieving data:", error);
+    }
+    
+  };
+  useEffect(()=>{
+    if(userId != 0 ){
+      handleShowUser()
+    }
+    handleShowBeneficiarys()
+  },[])
+
+
+console.log(usersId)
+
+
+const UpdateBeneficiaryId = async (price,currentDonation,usersId,PostId ) => {
+   
+  let newUsersId = usersId
+  newUsersId.push(userId)
+  try {
+    const updatedBeneficiary = {
+      // Update the properties of the user as needed
+      usersId: newUsersId,
+      currentDonation:Number(price)+currentDonation ,
+    };
+
+    await axios.put(`http://localhost:5000/api/beneficiarys/${PostId}`, updatedBeneficiary);
+    allBeneficiarys();
+  } catch (error) {
+    console.error("Error updating user:", error);
+  }
+};
+
+const UpdateUserId = async (PostId ) => {
+   
+  let newProvidersId = AllBeneficiarId
+  newProvidersId.push(PostId)
+  console.log(newProvidersId)
+  try {
+    const updatedUser = {
+      // Update the properties of the user as needed
+      providersId: newProvidersId,
+    };
+
+    await axios.put(`http://localhost:5000/api/users/${userId}`, updatedUser);
+    // allBeneficiarys();
+  } catch (error) {
+    console.error("Error updating user:", error);
+  }
+};
+
   const handlePayment = () => {
+
+
     const cardNumber = document.getElementById("card-no").value;
     const cardRegex = /^(4\d{15}|5\d{15})$/;
 
@@ -36,24 +116,16 @@ function PaymentPage() {
 
   const submitPayment = async () => {
     console.log("clicked");
-    axios
-      .post(`http://localhost:5000/payment/${id}`, {
-        expirationdate: expirationdate,
-        cvv: cvv,
-        cardholder: cardholder,
-      })
-      .then(() => {
-        showSuccessAlert();
-      })
-
-      .catch(() => {
-        showAlert("Donation failed. Please try again.");
-      });
+    UpdateBeneficiaryId(currentPrice,currentDonation,usersId,PostId)
+    if(userId != 0 ){
+      UpdateUserId(PostId)   
+     } 
+    showSuccessAlert("thanks for Donation",currentPrice)
   };
 
-  const showSuccessAlert = (message) => {
+  const showSuccessAlert = (message,currentPrice) => {
     Swal.fire({
-      title: `Thank you for Donating ${price}$`,
+      title: `Thank you for Donating ${currentPrice}$`,
       icon: "success",
       confirmButtonText: "OK",
     }).then(() => {

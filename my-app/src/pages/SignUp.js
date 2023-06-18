@@ -132,7 +132,7 @@ export default function Signup() {
 
                 <div className="w-full flex-1 mt-8">
                     
-                    <div className="mx-auto max-w-xs">
+                    <div className="mx-auto max-w-xs ">
                         <input
                             className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
                             type="email" placeholder="Email" value={email}
@@ -157,7 +157,7 @@ export default function Signup() {
                             onChange={(e) => setpassword(e.target.value)}/>
                             <p className="text-red-500">{passwordp}</p>
                         <button type='submit' 
-                            className="mt-5 bg-[#E8AA42] tracking-wide font-semibold  text-[#7C9070] w-full py-4 rounded-lg hover:bg-[#7C9070] hover:text-white transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
+                            className="mt-5 bg-[#219D80] tracking-wide font-semibold  text-[white] w-full py-4 rounded-lg hover:bg-[#219D80] hover:text-white transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
                             <svg className="w-6 h-6 -ml-2" fill="none" stroke="currentColor" strokeWidth="2"
                                 strokeLinecap="round" strokeLinejoin="round">
                                 <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
@@ -170,7 +170,7 @@ export default function Signup() {
                         </button>
                         <p className="mt-6 text-xs text-gray-600 text-center">
                             Have An Account?
-                            <Link to="/Login" className="border-b border-gray-500 border-dotted">
+                            <Link to="/Login" className="border-b border-gray-500 border-dotted" style={{color:"#E8AA42"}}>
                                 Sign-In Here
                             </Link>
                            

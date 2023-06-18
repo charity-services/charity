@@ -50,7 +50,7 @@ const BackimgAbout = () => {
             <nav className="text-white mb-8">
               <ol className="list-none p-0 inline-flex">
                 <li className="flex items-center">
-                  <Link to="/" className="text-amber-500">
+                  <Link to="/" style={{color:"#219D80"}}>
                     Home
                   </Link>
                   <svg
@@ -97,7 +97,7 @@ const BackimgAbout = () => {
           <div className="mt-16 grid border divide-x divide-y rounded-xl overflow-hidden sm:grid-cols-2 lg:divide-y-0 lg:grid-cols-3 xl:grid-cols-4">
             <div className="relative group bg-white transition hover:z-[1] hover:shadow-2xl">
               <div className="relative p-8 space-y-8">
-              <Icon path={mdiHandCoin} size={2}  color={"#fbbf24"} />
+              <Icon path={mdiHandCoin} size={2}  color={"#219D80"} />
                 <div className="space-y-2">
                   <h5 className="text-xl text-gray-800 font-medium transition group-hover:text-yellow-600">
                   Donation Options
@@ -111,7 +111,7 @@ const BackimgAbout = () => {
             </div>
             <div className="relative group bg-white transition hover:z-[1] hover:shadow-2xl">
               <div className="relative p-8 space-y-8">
-              <Icon path={mdiGift} size={2} color={"#fbbf24"} />
+              <Icon path={mdiGift} size={2} color={"#219D80"} />
                 <div className="space-y-2">
                   <h5 className="text-xl text-gray-800 font-medium transition group-hover:text-yellow-600">
                   Donation Tracking
@@ -125,7 +125,7 @@ const BackimgAbout = () => {
             </div>
             <div className="relative group bg-white transition hover:z-[1] hover:shadow-2xl">
               <div className="relative p-8 space-y-8">
-              <Icon path={mdiIncognito} size={2} color={"#fbbf24"} />
+              <Icon path={mdiIncognito} size={2} color={"#219D80"} />
                 <div className="space-y-2">
                   <h5 className="text-xl text-gray-800 font-medium transition group-hover:text-yellow-600">
                   Anonymous Donation Option
@@ -139,7 +139,7 @@ const BackimgAbout = () => {
             </div>
             <div className="relative group bg-white transition hover:z-[1] hover:shadow-2xl lg:hidden xl:block">
               <div className="relative p-8 space-y-8 border-dashed rounded-lg transition duration-300 group-hover:bg-white group-hover:border ">
-              <Icon path={mdiPail} size={2} color={"#fbbf24"} />
+              <Icon path={mdiPail} size={2} color={"#219D80"} />
                 <div className="space-y-2">
                   <h5 className="text-xl text-gray-800 font-medium transition group-hover:text-yellow-600">
                     Ease of use of the website
@@ -767,7 +767,7 @@ const BackimgAbout = () => {
             </div>
             <div className="w-full px-4 lg:w-1/2 xl:w-5/12 texy-black capitalize ">
               <div className="mt-10 lg:mt-0">
-                <span className=" mb-2 block text-lg font-semibold">
+                <span className=" mb-2 block text-lg font-semibold" style={{color:"#E8AA42"}}>
                   Why Choose Us
                 </span>
                 <h2 className="text-black mb-8 text-3xl font-bold sm:text-4xl">

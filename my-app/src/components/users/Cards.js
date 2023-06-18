@@ -144,51 +144,48 @@ const [yourSelectedStateValueAddress, setOptionAddress] = useState("");
   const navigate = useNavigate();
 
 
-  function handlePriceSelection(price,currentDonation,id,usersId,PostId) {
-
-
-    navigate(`/PaymentPage/${price}/${id}`);
-
-    // navigate(`/PaymentPage/${price,id}`);
-    // UpdateBeneficiaryId(price,currentDonation,id,usersId,PostId)
-    // UpdateUserId(price,currentDonation,id,usersId,PostId)
+  function handlePriceSelection(currentPrice,currentDonation,ProviderId,usersId,PostId) {
+    let userId0 = userId == undefined ? 0 : userId
+    navigate(`/PaymentPage/${currentPrice}/${ProviderId}/${PostId}/${userId0}`);
+    // UpdateBeneficiaryId(currentPrice,currentDonation,usersId,PostId)
+    // UpdateUserId(PostId)
   }
 
-  const UpdateUserId = async (price,currentDonation,id,usersId,PostId ) => {
+  // const UpdateUserId = async (PostId ) => {
    
-    let newProvidersId = AllBeneficiarId
-    newProvidersId.push(PostId)
-    console.log(newProvidersId)
-    try {
-      const updatedUser = {
-        // Update the properties of the user as needed
-        providersId: newProvidersId,
-      };
+  //   let newProvidersId = AllBeneficiarId
+  //   newProvidersId.push(PostId)
+  //   console.log(newProvidersId)
+  //   try {
+  //     const updatedUser = {
+  //       // Update the properties of the user as needed
+  //       providersId: newProvidersId,
+  //     };
 
-      await axios.put(`http://localhost:5000/api/users/${userId}`, updatedUser);
-      // allBeneficiarys();
-    } catch (error) {
-      console.error("Error updating user:", error);
-    }
-  };
+  //     await axios.put(`http://localhost:5000/api/users/${userId}`, updatedUser);
+  //     // allBeneficiarys();
+  //   } catch (error) {
+  //     console.error("Error updating user:", error);
+  //   }
+  // };
 
-  const UpdateBeneficiaryId = async (price,currentDonation,id,usersId,PostId ) => {
+  // const UpdateBeneficiaryId = async (price,currentDonation,usersId,PostId ) => {
    
-    let newUsersId = usersId
-    newUsersId.push(userId)
-    try {
-      const updatedBeneficiary = {
-        // Update the properties of the user as needed
-        usersId: newUsersId,
-        currentDonation:price+currentDonation ,
-      };
+  //   let newUsersId = usersId
+  //   newUsersId.push(userId)
+  //   try {
+  //     const updatedBeneficiary = {
+  //       // Update the properties of the user as needed
+  //       usersId: newUsersId,
+  //       currentDonation:price+currentDonation ,
+  //     };
 
-      await axios.put(`http://localhost:5000/api/beneficiarys/${PostId}`, updatedBeneficiary);
-      allBeneficiarys();
-    } catch (error) {
-      console.error("Error updating user:", error);
-    }
-  };
+  //     await axios.put(`http://localhost:5000/api/beneficiarys/${PostId}`, updatedBeneficiary);
+  //     allBeneficiarys();
+  //   } catch (error) {
+  //     console.error("Error updating user:", error);
+  //   }
+  // };
 
 // const [userAllDonatedPosts , setUserAllDonatedPosts] =useState([])
 

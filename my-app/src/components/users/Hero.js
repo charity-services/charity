@@ -91,7 +91,7 @@ const Hero = () => {
                     user
                   </Button>
                   <Button
-                    className="border mb-10 border-solid border-[#7C9070] border-2 text-[#7C9070] hover:bg-[#7C9070] hover:text-[#ffffff]"
+                    className="border mb-10 border-solid border-[#219D80] border-2 text-[#219D80] hover:bg-[#219D80] hover:text-[#ffffff]"
                     variant="text"
                     onClick={() => handleTypeSelection("beneficiary")}
                   >

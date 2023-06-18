@@ -137,7 +137,7 @@ function NavList() {
       >
         <Link to="/">
           <ListItem className="flex items-center gap-2 py-2 pr-4 text-black hover:bg-gray-600 hover:text-white focus:bg-[#E8AA42]">
-            <HomeIcon className="h-[18px] w-[18px] text-[#E8AA42] " />
+            <HomeIcon className="h-[18px] w-[18px] text-[#219D80] " />
             Home
           </ListItem>
         </Link>
@@ -151,10 +151,10 @@ function NavList() {
       >
       {      
      localStorage.auth !=null ? <Link to="/Kitchen">
-          <ListItem className="flex items-center gap-2 py-2 pr-4 text-black hover:bg-gray-600 hover:text-white focus:bg-[#E8AA42]">
-            <RestaurantIcon className="h-[18px] w-[18px] text-[#E8AA42] " />
+          {/* <ListItem className="flex items-center gap-2 py-2 pr-4 text-black hover:bg-gray-600 hover:text-white focus:bg-[#E8AA42]">
+            <RestaurantIcon className="h-[18px] w-[18px] text-[#219D80] " />
             Kitchen
-          </ListItem>
+          </ListItem> */}
         </Link> :null
         }
       </Typography>
@@ -167,7 +167,7 @@ function NavList() {
       >
         <Link to="/About">
           <ListItem className="flex items-center gap-2 py-2 pr-4 text-black hover:bg-gray-600 hover:text-white focus:bg-[#E8AA42]">
-            <CubeTransparentIcon className="h-[18px] w-[18px] text-[#E8AA42]" />
+            <CubeTransparentIcon className="h-[18px] w-[18px] text-[#219D80]" />
             About Us
           </ListItem>
         </Link>
@@ -182,7 +182,7 @@ function NavList() {
       >
         <Link to="/ContactUs">
           <ListItem className="flex items-center gap-2 py-2 pr-4 text-black hover:bg-gray-600 hover:text-white focus:bg-[#E8AA42]">
-            <UserCircleIcon className="h-[18px] w-[18px] text-[#E8AA42]" />
+            <UserCircleIcon className="h-[18px] w-[18px] text-[#219D80]" />
             Contact Us
           </ListItem>
         </Link>
@@ -361,7 +361,7 @@ export default function Example() {
             <Button
               onClick={() => handleSign()}
               size="sm"
-              className="bg-[#E8AA42] hover:shadow-lg-[#E8AA42]"
+              className="bg-[#219D80] hover:shadow-lg-[#219D80]"
             >
               Sign Up
             </Button>

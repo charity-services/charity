@@ -123,7 +123,7 @@ function handleLogOut(){
             <ListItemPrefix>
             <Icon path={mdiTableFurniture} size={1} />
             </ListItemPrefix>
-            <a style={{color:'black'}}> Pending Tables </a>
+            <a style={{color:'black'}}> Pending Posts </a>
           </ListItem>
           </Link>
 

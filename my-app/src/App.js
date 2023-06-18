@@ -14,6 +14,10 @@ import Home from "./pages/users/Home";
 import ProfilePage from "./pages/users/Profile";
 import EditPrifile from "./components/users/EditProfile";
 import PaymentPage from "./pages/users/Payment";
+import Blogs from "./pages/users/Blogs";
+
+
+
 //------------------  Beneficiary  ----------------------- //
 import HomeBeneficiary from "./pages/beneficiary/HomeBeneficiary"
 import ProfileBeneficiary from "./pages/beneficiary/ProfileBeneficiary"
@@ -104,12 +108,13 @@ export default function App() {
         <Routes>
           <Route index element={<Home />} />
           <Route path="ContactUs" element={<Contact />} /> 
+          <Route path="Blogs" element={<Blogs />} /> 
           <Route path="About" element={<About />} /> 
           <Route path="/SignUp/:type" element={<SignUp />} />
           <Route path="LogIn" element={<LogIn />} />
           <Route path="ProfilePage" element={<ProfilePage />} />
           <Route path="EditProfile" element={<EditPrifile />} />
-          <Route path="/PaymentPage/:price/:id" element={<PaymentPage />} />
+          <Route path="/PaymentPage/:currentPrice/:ProviderId/:PostId/:userId" element={<PaymentPage />} />
 
         </Routes>
         <Footer />
