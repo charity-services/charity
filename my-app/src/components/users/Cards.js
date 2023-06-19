@@ -125,7 +125,7 @@ const [yourSelectedStateValueAddress, setOptionAddress] = useState("");
 
   let slicedArrayUsers;
 
-  const itemsPerPage = 3;
+  const itemsPerPage = 4;
 
   totalItemsUsers = FilterDataUsers.length;
 
@@ -270,66 +270,197 @@ const [yourSelectedStateValueAddress, setOptionAddress] = useState("");
       <div className="grid grid-cols-1 md:grid-cols-2  sm:grid-cols-1 xl:grid-cols-4    place-items-center">
         {slicedArrayUsers.map((POST) => {
           return (
-            <Card className=" mt-10 w-[22rem] mr-3 ">
-              <CardHeader color="blue-gray" className="relative h-57">
-                <img
-                  src="https://media.istockphoto.com/id/1303833951/photo/vet-doctor-examining-labrador-dog.jpg?b=1&s=612x612&w=0&k=20&c=9pXgoWE5ai_faijylnCLpyORSiGKG0jxqBsLlNdntE8="
-                  alt="img-blur-shadow"
-                  layout="fill"
-                />
-              </CardHeader>
-              <CardBody>
-                <div className="flex justify-between">
-                  <Typography variant="h5" className="mb-2 text-[#7C9070]">
-                    {POST.Name}
-                  </Typography>
-                  <Typography variant="h5" className="mb-2 text-[#7C9070]">
-                    ${POST.currentDonation}/${POST.price}
-                  </Typography>
-                </div>
-                <Typography>
-                  {POST.des}
-                </Typography>
-                <Typography>
-                  {POST.donationType}
-                </Typography>
-                <Typography>
-                  {POST.donationCase}
-                </Typography>
-              </CardBody>
-              <CardFooter className="pt-0 flex justify-around">
-                <div className="flex" >
-                <Button
-                  className="mr-2 border mb-10 border-solid border-[#7C9070] border-2 text-[#7C9070] hover:bg-[#7C9070] hover:text-[#ffffff]"
-                  variant="text"
-                  onClick={() => handlePriceSelection(10,POST.currentDonation,POST.b_id,POST.usersId,POST._id)}
-                >
-                  10$
-                </Button>
 
-                <Button
-                  className="border mb-10 border-solid border-[#7C9070] border-2 text-[#7C9070] hover:bg-[#7C9070] hover:text-[#ffffff]"
-                  variant="text"
-                  onClick={() => handlePriceSelection(20,POST.currentDonation,POST.b_id,POST.usersId,POST._id)}
-                >
-                  20$
-                </Button>
-                </div>
-                <Button
-                  className="border mb-10 border-solid border-[#7C9070] border-2 text-[#7C9070] hover:bg-[#7C9070] hover:text-[#ffffff]"
-                  variant="text"
-                  onClick={() => handlePriceSelection(POST.price-POST.currentDonation,POST.currentDonation,POST.b_id,POST.usersId,POST._id)}
-                >
-                  {POST.price-POST.currentDonation}$
-                </Button>
 
-              </CardFooter>
-            </Card>
+
+          //   <Card className=" mt-10 w-[22rem] mr-3 ">
+          //   <CardHeader color="blue-gray" className="relative h-57">
+          //     <img
+          //       src="https://media.istockphoto.com/id/1303833951/photo/vet-doctor-examining-labrador-dog.jpg?b=1&s=612x612&w=0&k=20&c=9pXgoWE5ai_faijylnCLpyORSiGKG0jxqBsLlNdntE8="
+          //       alt="img-blur-shadow"
+          //       layout="fill"
+          //     />
+          //   </CardHeader>
+          //   <CardBody>
+          //     <div className="flex justify-between">
+          //       <Typography variant="h5" className="mb-2 text-[#7C9070]">
+          //         {POST.Name}
+          //       </Typography>
+          //       <Typography variant="h5" className="mb-2 text-[#7C9070]">
+          //         ${POST.currentDonation}/${POST.price}
+          //       </Typography>
+          //     </div>
+          //     <Typography>
+          //       {POST.des}
+          //     </Typography>
+          //     <Typography>
+          //       {POST.donationType}
+          //     </Typography>
+          //     <Typography>
+          //       {POST.donationCase}
+          //     </Typography>
+          //   </CardBody>
+          //   <CardFooter className="pt-0 flex justify-around">
+          //     <div className="flex" >
+          //     <Button
+          //       className="mr-2  mb-10 border-solid border-[#7C9070] border-2 text-[#7C9070] hover:bg-[#7C9070] hover:text-[#ffffff]"
+          //       variant="text"
+          //       onClick={() => handlePriceSelection(10,POST.currentDonation,POST.b_id,POST.usersId,POST._id)}
+          //     >
+          //       10$
+          //     </Button>
+
+          //     <Button
+          //       className=" mb-10 border-solid border-[#7C9070] border-2 text-[#7C9070] hover:bg-[#7C9070] hover:text-[#ffffff]"
+          //       variant="text"
+          //       onClick={() => handlePriceSelection(20,POST.currentDonation,POST.b_id,POST.usersId,POST._id)}
+          //     >
+          //       20$
+          //     </Button>
+          //     </div>
+          //     <Button
+          //       className=" mb-10 border-solid border-[#7C9070] border-2 text-[#7C9070] hover:bg-[#7C9070] hover:text-[#ffffff]"
+          //       variant="text"
+          //       onClick={() => handlePriceSelection(POST.price-POST.currentDonation,POST.currentDonation,POST.b_id,POST.usersId,POST._id)}
+          //     >
+          //       {POST.price-POST.currentDonation}$
+          //     </Button>
+
+          //   </CardFooter>
+          // </Card>
+
+
+
+<Card className=" mt-10 w-[22rem] mr-3 ">
+<CardHeader color="blue-gray" className="relative h-57">
+  <img
+    src="https://media.istockphoto.com/id/1303833951/photo/vet-doctor-examining-labrador-dog.jpg?b=1&s=612x612&w=0&k=20&c=9pXgoWE5ai_faijylnCLpyORSiGKG0jxqBsLlNdntE8="
+    alt="img-blur-shadow"
+    layout="fill"
+  />
+</CardHeader>
+<CardBody>
+  <div className="flex justify-between">
+    <Typography variant="h5" className="mb-2 text-[#E8AA42]">
+      {POST.Name}
+    </Typography>
+    <Typography variant="h5" className="mb-2 text-[#E8AA42]">
+      <span style={{color:"red"}}>${POST.currentDonation}</span>
+      /${POST.price}
+    </Typography>
+  </div>
+  <Typography>
+    {POST.des}
+  </Typography>
+  <Typography>
+    {POST.donationType}
+  </Typography>
+  <Typography>
+    {POST.donationCase}
+  </Typography>
+</CardBody>
+
+
+<CardFooter className="pt-0 flex justify-around">
+               <div className="flex" >
+               <Button
+                 className="mr-2  mb-10 border-solid border-[#7C9070] border-2 text-[#7C9070] hover:bg-[#7C9070] hover:text-[#ffffff]"
+            variant="text"
+              onClick={() => handlePriceSelection(10,POST.currentDonation,POST.b_id,POST.usersId,POST._id)}
+            >
+              10$
+            </Button>
+
+            <Button
+             className=" mb-10 border-solid border-[#7C9070] border-2 text-[#7C9070] hover:bg-[#7C9070] hover:text-[#ffffff]"
+              variant="text"
+              onClick={() => handlePriceSelection(20,POST.currentDonation,POST.b_id,POST.usersId,POST._id)}
+            >
+              20$
+            </Button>
+           </div>
+            <Button
+              className=" mb-10 border-solid border-[#7C9070] border-2 text-[#7C9070] hover:bg-[#7C9070] hover:text-[#ffffff]"
+              variant="text"
+              onClick={() => handlePriceSelection(POST.price-POST.currentDonation,POST.currentDonation,POST.b_id,POST.usersId,POST._id)}
+             >
+              {POST.price-POST.currentDonation}$
+            </Button>
+
+         </CardFooter>
+
+
+
+
+
+
+
+
+
+
+
+</Card>
+            // <Card className=" mt-10 w-[22rem] mr-3 ">
+            //   <CardHeader color="blue-gray" className="relative h-57">
+            //     <img
+            //       src="https://media.istockphoto.com/id/1303833951/photo/vet-doctor-examining-labrador-dog.jpg?b=1&s=612x612&w=0&k=20&c=9pXgoWE5ai_faijylnCLpyORSiGKG0jxqBsLlNdntE8="
+            //       alt="img-blur-shadow"
+            //       layout="fill"
+            //     />
+            //     {/* <img src={POST?.image}/> */}
+            //   </CardHeader>
+            //   <CardBody>
+            //     <div className="flex justify-between">
+            //       <Typography variant="h5" className="mb-2 text-[#7C9070]">
+            //         {POST.Name}
+            //       </Typography>
+            //       <Typography variant="h5" className="mb-2 text-[#7C9070]">
+            //         ${POST.currentDonation}/${POST.price}
+            //       </Typography>
+            //     </div>
+            //     <Typography>
+            //       {POST.des}
+            //     </Typography>
+            //     <Typography>
+            //       {POST.donationType}
+            //     </Typography>
+            //     <Typography>
+            //       {POST.donationCase}
+            //     </Typography>
+            //   </CardBody>
+            //   <CardFooter className="pt-0 flex justify-around">
+            //     <div className="flex" >
+            //     <Button
+            //       className="mr-2 border mb-10 border-solid border-[#7C9070] border-2 text-[#7C9070] hover:bg-[#7C9070] hover:text-[#ffffff]"
+            //       variant="text"
+            //       onClick={() => handlePriceSelection(10,POST.currentDonation,POST.b_id,POST.usersId,POST._id)}
+            //     >
+            //       10$
+            //     </Button>
+
+            //     <Button
+            //       className="border mb-10 border-solid border-[#7C9070] border-2 text-[#7C9070] hover:bg-[#7C9070] hover:text-[#ffffff]"
+            //       variant="text"
+            //       onClick={() => handlePriceSelection(20,POST.currentDonation,POST.b_id,POST.usersId,POST._id)}
+            //     >
+            //       20$
+            //     </Button>
+            //     </div>
+            //     <Button
+            //       className="border mb-10 border-solid border-[#7C9070] border-2 text-[#7C9070] hover:bg-[#7C9070] hover:text-[#ffffff]"
+            //       variant="text"
+            //       onClick={() => handlePriceSelection(POST.price-POST.currentDonation,POST.currentDonation,POST.b_id,POST.usersId,POST._id)}
+            //     >
+            //       {POST.price-POST.currentDonation}$
+            //     </Button>
+
+            //   </CardFooter>
+            // </Card>
           );
         })}
       </div>
 
-      <div className="flex w-full justify-center mt-5 bg-[#f8f8f8] mb-5">
+      <div className="flex w-full justify-center mt-10  mb-10">
         {
           <Pagination
             color="warning"

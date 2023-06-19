@@ -2,9 +2,10 @@ const Beneficiarys = require("../models/beneficiary");
 
 
 const newBeneficiary=async(req,res)=>{
-  const{Name,b_id,donationType,location,price,currentDonation,flag,donationCase,usersId,des}=req.body
+
+  const{Name,image,b_id,donationType,location,price,currentDonation,flag,donationCase,usersId,des}=req.body
   try{
-   const beneficiary=await Beneficiarys.create({Name,b_id,donationType,location,price,currentDonation,flag,donationCase,usersId,des})
+   const beneficiary=await Beneficiarys.create({Name,image,b_id,donationType,location,price,currentDonation,flag,donationCase,usersId,des})
    res.status(200).json(beneficiary)
   }
 catch(error){

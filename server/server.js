@@ -16,7 +16,7 @@ const errorHandler = require('./middleware/500')
 const Protected = require('./middleware/Protected')
 const app = express();
 app.use(cors());
-app.use(express.json());
+app.use(express.json({limit:'50mb'}));
 
 
 app.get("/", (req, res) => {

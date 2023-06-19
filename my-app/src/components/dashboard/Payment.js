@@ -210,7 +210,7 @@ const PaymentsInfo = () => {
                   className="border-b border-gray-200 pr-28 pb-[10px] text-start dark:!border-navy-700"
                   style={{ cursor: "pointer" }}
                 >
-                  <p className="text-xs tracking-wide text-gray-600">Card Holder</p>
+                  <p className="text-xs tracking-wide text-gray-600">donationCase</p>
                 </th>
 
 
@@ -271,7 +271,7 @@ const PaymentsInfo = () => {
                       role="cell"
                     >
                       <p className="text-sm font-bold text-navy-700 dark:text-white">
-                     {e.cardholder}
+                     {e.donationCase}
                       </p>
                     </td>
 
