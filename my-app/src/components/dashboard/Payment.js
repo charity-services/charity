@@ -9,6 +9,15 @@ import Swal from "sweetalert2";
 import { mdiSilverware } from "@mdi/js";
 import { mdiShieldCrownOutline } from "@mdi/js";
 import { mdiAccountOutline } from "@mdi/js";
+
+import {
+  Card,
+  CardHeader,
+  CardBody,
+  CardFooter,
+  Typography,
+  Button,
+} from "@material-tailwind/react";
 const PaymentsInfo = () => {
   const [persons, setPersons] = useState([]);
   const [persons0, setPersons0] = useState([]);
@@ -146,12 +155,19 @@ const PaymentsInfo = () => {
     });
   };
 
+
+  const [showCard ,setShowCard]= useState()
+
+  function handleShowCard(e){
+    setShowCard(e)
+  }
+
   return (
     <>
       <div className="bg-[#ffffff] mr-5 ml-5 p-10 rounded-2xl min-h-[calc(100vh)]   ">
         <div className="relative flex items-center justify-between pt-4">
           <div className="text-xl font-bold text-navy-700 dark:text-white">
-            Users Table
+            Payments
           </div>
         </div>
 
@@ -234,7 +250,7 @@ const PaymentsInfo = () => {
                       className="pt-[14px] pb-[18px] sm:text-[14px] flex items-center"
                       role="cell"
                     >
-                      <div className="h-[30px] w-[30px] rounded-full">
+                      <div onClick={()=>handleShowCard(e)} className="h-[30px] w-[30px] rounded-full">
                         <img
                           src="https://images.unsplash.com/photo-1506863530036-1efeddceb993?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2244&q=80"
                           className="h-full w-full rounded-full"
@@ -270,7 +286,7 @@ const PaymentsInfo = () => {
                       className="pt-[14px] pb-[18px] sm:text-[14px]"
                       role="cell"
                     >
-                      <p className="text-sm font-bold text-navy-700 dark:text-white">
+                      <p  className="text-sm font-bold text-navy-700 dark:text-white">
                      {e.donationCase}
                       </p>
                     </td>
@@ -303,7 +319,65 @@ const PaymentsInfo = () => {
             }
           </div>
         </div>
+
+
+
+
+
+
+
+
+        <Card className=" mt-10 w-[22rem] mr-3 ">
+            <CardHeader color="blue-gray" className="relative h-57">
+              {/* <img
+                src="https://media.istockphoto.com/id/1303833951/photo/vet-doctor-examining-labrador-dog.jpg?b=1&s=612x612&w=0&k=20&c=9pXgoWE5ai_faijylnCLpyORSiGKG0jxqBsLlNdntE8="
+                alt="img-blur-shadow"
+                layout="fill"
+              /> */}
+              {/* <img className="h-80 w-full" src={POST?.image}/> */}
+           
+            </CardHeader>
+            <CardBody>
+              <div className="flex justify-between">
+                <Typography variant="h5" className="mb-2 text-[#E8AA42]">
+                  {showCard?.firstName}
+                </Typography>
+                <Typography variant="h5" className="mb-2 text-[#E8AA42]">
+                  <span style={{color:"red"}}>${showCard?.currentPrice}</span>
+                  {/* /${showCard?.price} */}
+                </Typography>
+              </div>
+              <Typography>
+                {showCard?.cardholder}
+              </Typography>
+              <Typography>
+                {showCard?.donationType}
+              </Typography>
+              <Typography>
+                {showCard?.donationCase}
+              </Typography>
+            </CardBody>
+      
+
+          </Card>
+
+
+
+
+
+
+
+
+
+
       </div>
+
+    
+
+
+
+
+
     </>
   );
 };

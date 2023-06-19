@@ -102,7 +102,7 @@ const HomeBeneficiary = () => {
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="currentColor"
-          className="w-6 h-6"
+          className="w-6 h-6 "
         >
           <path
             strokeLinecap="round"
@@ -175,6 +175,7 @@ const HomeBeneficiary = () => {
   //     confirmButtonText: "OK",
   //   });
   // };
+  const [priceStatus,setPriceStatus]=useState(true)
   return (
     <div>
       <div className="relative flex flex-col-reverse py-16 lg:pt-0 lg:flex-col lg:pb-0 ">
@@ -518,25 +519,44 @@ const HomeBeneficiary = () => {
       <main className="py-14">
         <div className="max-w-screen-xl mx-auto px-4 text-gray-600 md:px-8">
           <div className="max-w-lg mx-auto gap-12 justify-between lg:flex lg:max-w-none">
-            <div className="max-w-lg space-y-3">
-              <p className="text-gray-800 text-3xl font-semibold sm:text-4xl">
-                Let us know how we can help
-              </p>
-              <p>
-                We’re here to help and answer any question you might have, We
-                look forward to hearing from you! Please fill out the form, or
-                us the contact information bellow .
-              </p>
-
-              <div>
+            {/* <span
+              id="blackOverlay"
+              className="w-full h-full absolute opacity-50 bg-black"
+            /> */}
+            <div
+              className="max-w-xl h-75"
+              style={{
+                backgroundImage:
+                  'url("https://images.unsplash.com/photo-1516934024742-b461fba47600?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80")',
+                backgroundRepeat: "no-repeat",
+                opacity: 0.5,
+                backgroundSize: "cover",
+              }}
+            >
+              <div className="p-10 ">
+                <p className="text-yellow-800 pt-10 text-7xl font-semibold sm:text-4xl">
+                  Let us know how we can help
+                </p>
+                <p className="text-black text-xl p-10 text-white leading-10">
+                  We’re here to help and answer any question you might have, We
+                  look forward to hearing from you! Please fill out the form,
+                  Support our animal donation initiatives to make a positive
+                  impact on animals in need. Your contributions provide food,
+                  shelter, and medical care. Join us in creating a better world
+                  for our furry friends. Make a difference in the lives of
+                  animals through your generous donations. Help us provide
+                  essential care and support to vulnerable animals in need.
+                </p>
+                {/* <div>
                 <ul className="mt-6 flex flex-wrap gap-x-10 gap-y-6 items-center">
                   {contactMethods.map((item, idx) => (
                     <li key={idx} className="flex items-center gap-x-3">
-                      <div className="flex-none text-gray-400">{item.icon}</div>
+                      <div className="flex-none text-white">{item.icon}</div>
                       <p>{item.contact}</p>
                     </li>
                   ))}
                 </ul>
+              </div> */}
               </div>
             </div>
             <div className="flex-1 mt-12 sm:max-w-lg lg:max-w-md">
@@ -561,6 +581,7 @@ const HomeBeneficiary = () => {
                     className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border-2 border-gray-300 p-2  focus:border-[#E8AA42] shadow-sm rounded-lg"
                   />
                 </div>
+                {priceStatus == true ?
                 <div>
                   <label className="font-medium">Donation's amount</label>
                   <input
@@ -571,7 +592,8 @@ const HomeBeneficiary = () => {
                     onChange={(e) => setPrice(e.target.value)}
                     className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border-2 border-gray-300 p-2   focus:border-[#E8AA42] shadow-sm rounded-lg"
                   />
-                </div>
+                </div> : null
+                }
                 <div>
                   <label className="font-medium">Description</label>
                   <textarea
@@ -583,7 +605,7 @@ const HomeBeneficiary = () => {
                 </div>
 
                 <div>
-                  <label className="font-medium">Description</label>
+                  <label className="font-medium">Case Image</label>
 
                   <input
                     className="shadow mb-4 appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
@@ -611,20 +633,23 @@ const HomeBeneficiary = () => {
                   <option>Stray Animals</option>
                   <option>injured animals</option>
                 </select>
-<div className="flex">
-                <label for="don1" className="font-bold">
-                  Type of Donate :{" "}
-                </label>
-                <select
-                  id="don1"
-                  value={donationType}
-                  onChange={(e) => setdonationType(e.target.value)}
-                  className="select border-2 border-gray-300 p-2 rounded-lg w-full max-w-xs focus:border-[#E8AA42]"
-                >
-                  {/* <option disabled selected>Type of Donation</option> */}
-                  <option>Money</option>
-                  <option>Others</option>
-                </select>
+                <div className="flex">
+                  <label for="don1" className="font-bold">
+                    Type of Donate :{" "}
+                  </label>
+                  <select
+                    id="don1"
+                    value={donationType}
+                    onChange={(e) => {
+                      setdonationType(e.target.value)
+                      setPriceStatus(e.target.value == "Others" ? false : true)
+                    }}
+                    className="select border-2 border-gray-300 p-2 rounded-lg w-full max-w-xs focus:border-[#E8AA42]"
+                  >
+                    {/* <option disabled selected>Type of Donation</option> */}
+                    <option>Money</option>
+                    <option>Others</option>
+                  </select>
                 </div>
                 <button
                   type="submit"

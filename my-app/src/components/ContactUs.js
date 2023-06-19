@@ -64,7 +64,7 @@ console.log(message)
     } catch (error) {
       console.error("Error updating user:", error);
     }
-  
+    Swal.fire("Success", "Message sent successfully!", "success");
     // try {
     //   const response = await axios.post(
     //     "http://localhost:5000/usersContactUs",

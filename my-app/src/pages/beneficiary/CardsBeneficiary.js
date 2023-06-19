@@ -69,7 +69,7 @@ function Cards() {
                 alt="img-blur-shadow"
                 layout="fill"
               /> */}
-              <img src={POST?.image}/>
+              <img className="h-80 w-full" src={POST?.image}/>
             </CardHeader>
             <CardBody>
               <div className="flex justify-between">

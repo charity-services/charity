@@ -32,6 +32,7 @@ import {
   FaceSmileIcon,
   PuzzlePieceIcon,
   HomeIcon,
+  BookOpenIcon
 } from "@heroicons/react/24/outline";
 // import logo from "../Images/fruits/Lime.png";
 import RestaurantIcon from "@mui/icons-material/Restaurant";
@@ -140,6 +141,20 @@ function NavList() {
           <ListItem className="flex items-center gap-2 py-2 pr-4 text-black hover:bg-gray-600 hover:text-white focus:bg-[#E8AA42]">
             <HomeIcon className="h-[18px] w-[18px] text-[#219D80] " />
             Home
+          </ListItem>
+        </Link>
+      </Typography>
+      <Typography
+        as="a"
+        href="#"
+        variant="small"
+        color="blue-gray"
+        className="font-normal"
+      >
+        <Link to="/Blogs">
+          <ListItem className="flex items-center gap-2 py-2 pr-4 text-black hover:bg-gray-600 hover:text-white focus:bg-[#E8AA42]">
+            <BookOpenIcon className="h-[18px] w-[18px] text-[#219D80] " />
+            Blogs
           </ListItem>
         </Link>
       </Typography>

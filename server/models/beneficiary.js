@@ -29,12 +29,12 @@ const beneficiarySchema = new Schema({
   },
   price:{
       type : Number,
-      required : true
+      required : false
   },
   currentDonation:{
       type : Number,
       default : 0,
-      required : true
+      required : false
   },
   flag:{
       type : Boolean,

@@ -7,17 +7,16 @@ import {
   Button,
 } from "@material-tailwind/react";
 import Pagination from "@mui/material/Pagination";
-import { useState ,useEffect } from "react";
-import { Link,useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 import axios from "axios";
 export default function Cards() {
+  const [userId, setUserId] = useState();
+  const [Beneficiarys, setBeneficiarys] = useState([]);
 
- const [userId ,setUserId] = useState()
- const [Beneficiarys ,setBeneficiarys] = useState([])
-
- const [FilterDataUsers, setFilterDataUsers] = useState([]);
- const [AllBeneficiarId,setAllBeneficiarId]= useState([])
+  const [FilterDataUsers, setFilterDataUsers] = useState([]);
+  const [AllBeneficiarId, setAllBeneficiarId] = useState([]);
 
   const fetchProtectedData = async () => {
     try {
@@ -28,12 +27,14 @@ export default function Cards() {
             Authorization: token,
           },
         });
-        setUserId(response.data.user.id)
-      let  varId=response.data.user.id
+        setUserId(response.data.user.id);
+        let varId = response.data.user.id;
         try {
-          const response = await axios.get(`http://localhost:5000/api/users/${varId}`); 
-          console.log(response.data)
-          setAllBeneficiarId(response.data[0].providersId)
+          const response = await axios.get(
+            `http://localhost:5000/api/users/${varId}`
+          );
+          console.log(response.data);
+          setAllBeneficiarId(response.data[0].providersId);
         } catch (error) {
           console.error("Error retrieving data:", error);
         }
@@ -47,52 +48,47 @@ export default function Cards() {
     }
   };
 
-
   const allBeneficiarys = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/beneficiarys");
+      const response = await axios.get(
+        "http://localhost:5000/api/beneficiarys"
+      );
       setBeneficiarys(response.data);
-    console.log(response.data)
-      setFilterDataUsers(response.data)
+      console.log(response.data);
+      setFilterDataUsers(response.data);
     } catch (error) {
       console.error("Error inserting data:", error);
     }
   };
 
-
   // const handleShowUser = async () => {
   //   console.log(userId)
   //   try {
-  //     const response = await axios.get(`http://localhost:5000/api/users/${userId}`); 
+  //     const response = await axios.get(`http://localhost:5000/api/users/${userId}`);
   //     console.log(response.data)
   //     setAllPosts(response.data.providersId)
   //   } catch (error) {
   //     console.error("Error retrieving data:", error);
   //   }
-    
+
   // };
 
+  useEffect(() => {
+    if (localStorage.auth != null) {
+      fetchProtectedData();
+    }
+    allBeneficiarys();
+  }, []);
+  console.log(AllBeneficiarId);
+  // useEffect(()=>{
+  //    handleShowUser()
+  // },[])
+  // console.log(allPosts)
 
-
-useEffect(()=>{
-  if(localStorage.auth != null){   
-    fetchProtectedData()
-  }
-  allBeneficiarys();
-},[])
-console.log(AllBeneficiarId)
-// useEffect(()=>{
-//    handleShowUser()
-// },[])
-// console.log(allPosts)
-
-
-const [yourSelectedStateValueType, setOptionType] = useState("");
-const [yourSelectedStateValueAddress, setOptionAddress] = useState("");
+  const [yourSelectedStateValueType, setOptionType] = useState("");
+  const [yourSelectedStateValueAddress, setOptionAddress] = useState("");
   //-----------------------search------------------------//
   const [searchTermUsers, setSearchTermUsers] = useState("");
-
-
 
   //This function is work as filter the restaurants based on their name and update the searchTermUsers state whenever the user types in the search input field.
   const filterDataByNameUsers = (searchTermUsers) => {
@@ -104,18 +100,7 @@ const [yourSelectedStateValueAddress, setOptionAddress] = useState("");
     console.log(searchTermUsers);
   };
 
-  function handleFind() {
-   
-    const filteredDataUsers = Beneficiarys?.filter((item) =>
-    item.donationType
-      ?.toLowerCase()
-      .includes(yourSelectedStateValueType.toLowerCase()) &&
-    item.donationCase
-      ?.toLowerCase()
-      .includes(yourSelectedStateValueAddress.toLowerCase())
-  );
-    setFilterDataUsers(filteredDataUsers);
-  }
+
 
   const [currentPageUsers, setCurrentPageUsers] = useState(1);
 
@@ -143,16 +128,21 @@ const [yourSelectedStateValueAddress, setOptionAddress] = useState("");
 
   const navigate = useNavigate();
 
-
-  function handlePriceSelection(currentPrice,currentDonation,ProviderId,usersId,PostId) {
-    let userId0 = userId == undefined ? 0 : userId
+  function handlePriceSelection(
+    currentPrice,
+    currentDonation,
+    ProviderId,
+    usersId,
+    PostId
+  ) {
+    let userId0 = userId == undefined ? 0 : userId;
     navigate(`/PaymentPage/${currentPrice}/${ProviderId}/${PostId}/${userId0}`);
     // UpdateBeneficiaryId(currentPrice,currentDonation,usersId,PostId)
     // UpdateUserId(PostId)
   }
 
   // const UpdateUserId = async (PostId ) => {
-   
+
   //   let newProvidersId = AllBeneficiarId
   //   newProvidersId.push(PostId)
   //   console.log(newProvidersId)
@@ -170,7 +160,7 @@ const [yourSelectedStateValueAddress, setOptionAddress] = useState("");
   // };
 
   // const UpdateBeneficiaryId = async (price,currentDonation,usersId,PostId ) => {
-   
+
   //   let newUsersId = usersId
   //   newUsersId.push(userId)
   //   try {
@@ -187,24 +177,42 @@ const [yourSelectedStateValueAddress, setOptionAddress] = useState("");
   //   }
   // };
 
-// const [userAllDonatedPosts , setUserAllDonatedPosts] =useState([])
+  // const [userAllDonatedPosts , setUserAllDonatedPosts] =useState([])
 
-// const handlePosts =async()=>{
+  // const handlePosts =async()=>{
 
-//   try {
-//     const response = await axios.get(`http://localhost:5000/api/beneficiarysCards/${userId}`); 
-//     console.log(response.data)
-//     setUserAllDonatedPosts(response.data)
-//   } catch (error) {
-//     console.error("Error retrieving data:", error);
-//   }
+  //   try {
+  //     const response = await axios.get(`http://localhost:5000/api/beneficiarysCards/${userId}`);
+  //     console.log(response.data)
+  //     setUserAllDonatedPosts(response.data)
+  //   } catch (error) {
+  //     console.error("Error retrieving data:", error);
+  //   }
+
+  // }
+  const handleFilterChange = (typeValue, addressValue) => {
 
 
-// }
+    
+   
+
+      
+      const filteredDataUsers = Beneficiarys?.filter(
+        (item) =>
+          item.donationType?.toLowerCase().includes(typeValue.toLowerCase()) &&
+          item.donationCase?.toLowerCase().includes(addressValue.toLowerCase())
+      );
+      setFilterDataUsers(filteredDataUsers);
+      console.log(filteredDataUsers)
+    
+
+
+
+  };
 
   return (
     <>
-    {/* <Button onClick={handlePosts}>Find all Posts</Button> */}
+      {/* <Button onClick={handlePosts}>Find all Posts</Button> */}
       <div className="flex justify-center mt-5 mb-5">
         <div className="w-full md:w-full mx-8 shadow shadow-black p-5 rounded-lg bg-white border-solid border-1 border-[#0e0d0d] transform transition duration-300 ">
           <div className="relative">
@@ -237,7 +245,13 @@ const [yourSelectedStateValueAddress, setOptionAddress] = useState("");
               <select
                 className="px-4 py-3 w-48 md:w-60 rounded-md bg-gray-100 border-[#E8AA42] border-2 focus:border-yellow-600 focus:bg-white focus:ring-0 text-sm appearance mr-5"
                 value={yourSelectedStateValueType}
-                onChange={(e) => setOptionType(e.target.value)}
+                onChange={(e) => {
+                  setOptionType(e.target.value);
+                  handleFilterChange(
+                    e.target.value,
+                    yourSelectedStateValueAddress
+                  );
+                }}
               >
                 <option value="">All donation Type</option>
                 <option value="Money">Money</option>
@@ -247,22 +261,21 @@ const [yourSelectedStateValueAddress, setOptionAddress] = useState("");
               <select
                 className="px-4 py-3 w-48 md:w-60 rounded-md bg-gray-100 border-[#E8AA42] border-2 focus:border-[#E8AA42] focus:bg-white focus:ring-0 text-sm appearance"
                 value={yourSelectedStateValueAddress}
-                onChange={(e) => setOptionAddress(e.target.value)}
+                onChange={(e) => {
+                  setOptionAddress(e.target.value);
+                  handleFilterChange(
+                    yourSelectedStateValueType,
+                    e.target.value
+                  );
+                }}
               >
                 <option value="">all donation Case</option>
                 <option value="Stray Animals">Stray Animals</option>
                 <option value="injured animals">injured animals</option>
-            
               </select>
             </div>
 
-            <Button
-              className="border border-solid border-[#E8AA42] border-2 text-[#E8AA42] hover:bg-[#E8AA42] hover:text-[#ffffff]"
-              variant="text"
-              onClick={handleFind}
-            >
-              Find
-            </Button>
+
           </div>
         </div>
       </div>
@@ -270,137 +283,139 @@ const [yourSelectedStateValueAddress, setOptionAddress] = useState("");
       <div className="grid grid-cols-1 md:grid-cols-2  sm:grid-cols-1 xl:grid-cols-4    place-items-center">
         {slicedArrayUsers.map((POST) => {
           return (
+            //   <Card className=" mt-10 w-[22rem] mr-3 ">
+            //   <CardHeader color="blue-gray" className="relative h-57">
+            //     <img
+            //       src="https://media.istockphoto.com/id/1303833951/photo/vet-doctor-examining-labrador-dog.jpg?b=1&s=612x612&w=0&k=20&c=9pXgoWE5ai_faijylnCLpyORSiGKG0jxqBsLlNdntE8="
+            //       alt="img-blur-shadow"
+            //       layout="fill"
+            //     />
+            //   </CardHeader>
+            //   <CardBody>
+            //     <div className="flex justify-between">
+            //       <Typography variant="h5" className="mb-2 text-[#7C9070]">
+            //         {POST.Name}
+            //       </Typography>
+            //       <Typography variant="h5" className="mb-2 text-[#7C9070]">
+            //         ${POST.currentDonation}/${POST.price}
+            //       </Typography>
+            //     </div>
+            //     <Typography>
+            //       {POST.des}
+            //     </Typography>
+            //     <Typography>
+            //       {POST.donationType}
+            //     </Typography>
+            //     <Typography>
+            //       {POST.donationCase}
+            //     </Typography>
+            //   </CardBody>
+            //   <CardFooter className="pt-0 flex justify-around">
+            //     <div className="flex" >
+            //     <Button
+            //       className="mr-2  mb-10 border-solid border-[#7C9070] border-2 text-[#7C9070] hover:bg-[#7C9070] hover:text-[#ffffff]"
+            //       variant="text"
+            //       onClick={() => handlePriceSelection(10,POST.currentDonation,POST.b_id,POST.usersId,POST._id)}
+            //     >
+            //       10$
+            //     </Button>
 
+            //     <Button
+            //       className=" mb-10 border-solid border-[#7C9070] border-2 text-[#7C9070] hover:bg-[#7C9070] hover:text-[#ffffff]"
+            //       variant="text"
+            //       onClick={() => handlePriceSelection(20,POST.currentDonation,POST.b_id,POST.usersId,POST._id)}
+            //     >
+            //       20$
+            //     </Button>
+            //     </div>
+            //     <Button
+            //       className=" mb-10 border-solid border-[#7C9070] border-2 text-[#7C9070] hover:bg-[#7C9070] hover:text-[#ffffff]"
+            //       variant="text"
+            //       onClick={() => handlePriceSelection(POST.price-POST.currentDonation,POST.currentDonation,POST.b_id,POST.usersId,POST._id)}
+            //     >
+            //       {POST.price-POST.currentDonation}$
+            //     </Button>
 
+            //   </CardFooter>
+            // </Card>
 
-          //   <Card className=" mt-10 w-[22rem] mr-3 ">
-          //   <CardHeader color="blue-gray" className="relative h-57">
-          //     <img
-          //       src="https://media.istockphoto.com/id/1303833951/photo/vet-doctor-examining-labrador-dog.jpg?b=1&s=612x612&w=0&k=20&c=9pXgoWE5ai_faijylnCLpyORSiGKG0jxqBsLlNdntE8="
-          //       alt="img-blur-shadow"
-          //       layout="fill"
-          //     />
-          //   </CardHeader>
-          //   <CardBody>
-          //     <div className="flex justify-between">
-          //       <Typography variant="h5" className="mb-2 text-[#7C9070]">
-          //         {POST.Name}
-          //       </Typography>
-          //       <Typography variant="h5" className="mb-2 text-[#7C9070]">
-          //         ${POST.currentDonation}/${POST.price}
-          //       </Typography>
-          //     </div>
-          //     <Typography>
-          //       {POST.des}
-          //     </Typography>
-          //     <Typography>
-          //       {POST.donationType}
-          //     </Typography>
-          //     <Typography>
-          //       {POST.donationCase}
-          //     </Typography>
-          //   </CardBody>
-          //   <CardFooter className="pt-0 flex justify-around">
-          //     <div className="flex" >
-          //     <Button
-          //       className="mr-2  mb-10 border-solid border-[#7C9070] border-2 text-[#7C9070] hover:bg-[#7C9070] hover:text-[#ffffff]"
-          //       variant="text"
-          //       onClick={() => handlePriceSelection(10,POST.currentDonation,POST.b_id,POST.usersId,POST._id)}
-          //     >
-          //       10$
-          //     </Button>
-
-          //     <Button
-          //       className=" mb-10 border-solid border-[#7C9070] border-2 text-[#7C9070] hover:bg-[#7C9070] hover:text-[#ffffff]"
-          //       variant="text"
-          //       onClick={() => handlePriceSelection(20,POST.currentDonation,POST.b_id,POST.usersId,POST._id)}
-          //     >
-          //       20$
-          //     </Button>
-          //     </div>
-          //     <Button
-          //       className=" mb-10 border-solid border-[#7C9070] border-2 text-[#7C9070] hover:bg-[#7C9070] hover:text-[#ffffff]"
-          //       variant="text"
-          //       onClick={() => handlePriceSelection(POST.price-POST.currentDonation,POST.currentDonation,POST.b_id,POST.usersId,POST._id)}
-          //     >
-          //       {POST.price-POST.currentDonation}$
-          //     </Button>
-
-          //   </CardFooter>
-          // </Card>
-
-
-
-<Card className=" mt-10 w-[22rem] mr-3 ">
-<CardHeader color="blue-gray" className="relative h-57">
-  {/* <img
+            <Card className=" mt-10 w-[22rem] mr-3 ">
+              <CardHeader color="blue-gray" className="relative h-57">
+                {/* <img
     src="https://media.istockphoto.com/id/1303833951/photo/vet-doctor-examining-labrador-dog.jpg?b=1&s=612x612&w=0&k=20&c=9pXgoWE5ai_faijylnCLpyORSiGKG0jxqBsLlNdntE8="
     alt="img-blur-shadow"
     layout="fill"
   /> */}
-   <img src={POST?.image}/>
-</CardHeader>
-<CardBody>
-  <div className="flex justify-between">
-    <Typography variant="h5" className="mb-2 text-[#E8AA42]">
-      {POST.Name}
-    </Typography>
-    <Typography variant="h5" className="mb-2 text-[#E8AA42]">
-      <span style={{color:"red"}}>${POST.currentDonation}</span>
-      /${POST.price}
-    </Typography>
-  </div>
-  <Typography>
-    {POST.des}
-  </Typography>
-  <Typography>
-    {POST.donationType}
-  </Typography>
-  <Typography>
-    {POST.donationCase}
-  </Typography>
-</CardBody>
+                <img className="h-80 w-full" src={POST?.image} />
+              </CardHeader>
+              <CardBody>
+                <div className="flex justify-between">
+                  <Typography variant="h5" className="mb-2 text-[#E8AA42]">
+                    {POST.Name}
+                  </Typography>
+                  <Typography variant="h5" className="mb-2 text-[#E8AA42]">
+                    <span style={{ color: "red" }}>
+                      ${POST.currentDonation}
+                    </span>
+                    /${POST.price}
+                  </Typography>
+                </div>
+                <Typography>{POST.des}</Typography>
+                <Typography>{POST.donationType}</Typography>
+                <Typography>{POST.donationCase}</Typography>
+              </CardBody>
 
+              <CardFooter className="pt-0 flex justify-around">
+                <div className="flex">
+                  <Button
+                    className="mr-2  mb-10 border-solid border-[#219D80] border-2 text-[#219D80] hover:bg-[#219D80] hover:text-[#ffffff]"
+                    variant="text"
+                    onClick={() =>
+                      handlePriceSelection(
+                        10,
+                        POST.currentDonation,
+                        POST.b_id,
+                        POST.usersId,
+                        POST._id
+                      )
+                    }
+                  >
+                    10$
+                  </Button>
 
-<CardFooter className="pt-0 flex justify-around">
-               <div className="flex" >
-               <Button
-                 className="mr-2  mb-10 border-solid border-[#7C9070] border-2 text-[#7C9070] hover:bg-[#7C9070] hover:text-[#ffffff]"
-            variant="text"
-              onClick={() => handlePriceSelection(10,POST.currentDonation,POST.b_id,POST.usersId,POST._id)}
-            >
-              10$
-            </Button>
-
-            <Button
-             className=" mb-10 border-solid border-[#7C9070] border-2 text-[#7C9070] hover:bg-[#7C9070] hover:text-[#ffffff]"
-              variant="text"
-              onClick={() => handlePriceSelection(20,POST.currentDonation,POST.b_id,POST.usersId,POST._id)}
-            >
-              20$
-            </Button>
-           </div>
-            <Button
-              className=" mb-10 border-solid border-[#7C9070] border-2 text-[#7C9070] hover:bg-[#7C9070] hover:text-[#ffffff]"
-              variant="text"
-              onClick={() => handlePriceSelection(POST.price-POST.currentDonation,POST.currentDonation,POST.b_id,POST.usersId,POST._id)}
-             >
-              {POST.price-POST.currentDonation}$
-            </Button>
-
-         </CardFooter>
-
-
-
-
-
-
-
-
-
-
-
-</Card>
+                  <Button
+                    className=" mb-10 border-solid border-[#219D80] border-2 text-[#219D80] hover:bg-[#219D80] hover:text-[#ffffff]"
+                    variant="text"
+                    onClick={() =>
+                      handlePriceSelection(
+                        20,
+                        POST.currentDonation,
+                        POST.b_id,
+                        POST.usersId,
+                        POST._id
+                      )
+                    }
+                  >
+                    20$
+                  </Button>
+                </div>
+                <Button
+                  className=" mb-10 border-solid border-[#E8AA42] border-2 text-[#E8AA42] hover:bg-[#E8AA42] hover:text-[#ffffff]"
+                  variant="text"
+                  onClick={() =>
+                    handlePriceSelection(
+                      POST.price - POST.currentDonation,
+                      POST.currentDonation,
+                      POST.b_id,
+                      POST.usersId,
+                      POST._id
+                    )
+                  }
+                >
+                  {POST.price - POST.currentDonation}$
+                </Button>
+              </CardFooter>
+            </Card>
             // <Card className=" mt-10 w-[22rem] mr-3 ">
             //   <CardHeader color="blue-gray" className="relative h-57">
             //     <img
@@ -472,14 +487,6 @@ const [yourSelectedStateValueAddress, setOptionAddress] = useState("");
         }
       </div>
 
-
-
-
-
-
-
-
-
       {/* <div className="grid grid-cols-1 md:grid-cols-2  sm:grid-cols-1 xl:grid-cols-4    place-items-center">
         {userAllDonatedPosts?.map((POST) => {
           return (
@@ -515,13 +522,6 @@ const [yourSelectedStateValueAddress, setOptionAddress] = useState("");
           );
         })}
       </div> */}
-
-
-
-
-
-
-
     </>
   );
 }

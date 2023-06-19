@@ -7,7 +7,7 @@ import { UserContext } from '../../UserContext';
 import React,{useState,useEffect,useContext} from "react";
 import { mdiTableFurniture } from '@mdi/js';
 import { mdiCashClock } from '@mdi/js';
-
+import logo from '../../Images/logooo.png'
 import {
     Card,
     Typography,
@@ -69,7 +69,10 @@ function handleLogOut(){
       <Card className=" min-h-[calc(100vh)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-white-900/5 Sidebar bg-white sideBarDash">
         <div className="mb-2 p-4">
         <Typography className="text-[#E8AA42]" variant="h5" color="blue-gray">
-        <a> Give Life </a>
+        <Link to="/">
+            <img className="animate-pulse" src={logo} alt="logo" width={150} height={50} />
+            {/* <p className="text-black">Give Life</p> */}
+          </Link>
           </Typography>
         </div>
         <List>

@@ -72,6 +72,16 @@ const allBeneficiarysAdmin = (req, res) => {
     });
 };
 
+const allBeneficiarysAdminAp = (req, res) => { 
+  Beneficiarys.find({ $and: [ { $expr: { $ne: ['$price', '$currentDonation'] } }, { flag: true } ]})
+    .then((data) => {   
+      res.json(data);
+    })
+    .catch((error) => {
+      errorHandler(error, req, res);
+    });
+};
+
 
 const oneBeneficiary =  async (req, res) => {
   const id = req.params.id;
@@ -99,6 +109,7 @@ module.exports = {
     allUserCards,
     allUserCardsF,
     allBeneficiaryCardsP,
+    allBeneficiarysAdminAp
     // updateBeneficiary,
     // deleteBeneficiary,
   }; 

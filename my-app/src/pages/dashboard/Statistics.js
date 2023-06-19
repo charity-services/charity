@@ -5,8 +5,8 @@ import Icon from '@mdi/react';
 import { mdiAccountMultipleOutline ,
   mdiCashRegister,
   mdiSilverwareForkKnife ,
-  mdiTableFurniture,
-  mdiNotebookEditOutline ,
+  mdiCat ,
+  mdiDogSide  ,
 } from '@mdi/js';
 
 const Statistics = () => {
@@ -90,7 +90,7 @@ const Statistics = () => {
           </div>
         </div>
         <div className="h-50 ml-4 flex w-auto flex-col justify-center">
-          <p className="font-dm text-sm font-medium text-black">Earnings</p>
+          <p className="font-dm text-sm font-medium text-black">Money Bank</p>
           <h4 className="text-xl font-bold text-[#E8AA42] dark:text-white">
             {/* $ {payment*5} */}
           </h4>
@@ -125,7 +125,7 @@ const Statistics = () => {
           </div>
         </div>
         <div className="h-50 ml-4 flex w-auto flex-col justify-center">
-          <p className="font-dm text-sm font-medium text-black">Total Restaurants</p>
+          <p className="font-dm text-sm font-medium text-black">Food Bank</p>
           <h4 className="text-xl font-bold text-[#E8AA42] dark:text-white">
             {/* {restaurant.length} */}
           </h4>
@@ -135,13 +135,13 @@ const Statistics = () => {
         <div className="ml-[18px] flex h-[90px] w-auto flex-row items-center">
           <div className="rounded-full bg-[#f4f7fe] p-3 dark:bg-navy-700">
             <span className="flex items-center text-brand-500 dark:text-white">
-            <Icon className="text-[#7C9070]" path={mdiTableFurniture} size={1} />
+            <Icon className="text-[#7C9070]" path={mdiCat } size={1} />
 
             </span>
           </div>
         </div>
         <div className="h-50 ml-4 flex w-auto flex-col justify-center">
-          <p className="font-dm text-sm font-medium text-black">Total tables</p>
+          <p className="font-dm text-sm font-medium text-black">Animals Rescued</p>
           <h4 className="text-xl font-bold text-[#E8AA42] dark:text-white">
             {/* {restaurantTables.length} */}
           </h4>
@@ -151,13 +151,13 @@ const Statistics = () => {
         <div className="ml-[18px] flex h-[90px] w-auto flex-row items-center">
           <div className="rounded-full bg-[#f4f7fe] p-3 dark:bg-navy-700">
             <span className="flex items-center text-brand-500 dark:text-white">
-            <Icon className="text-[#7C9070]" path={mdiNotebookEditOutline} size={1} />
+            <Icon className="text-[#7C9070]" path={mdiDogSide } size={1} />
 
             </span>
           </div>
         </div>
         <div className="h-50 ml-4 flex w-auto flex-col justify-center">
-          <p className="font-dm text-sm font-medium text-black">Total orders</p>
+          <p className="font-dm text-sm font-medium text-black">Available cases</p>
           <h4 className="text-xl font-bold text-[#E8AA42] dark:text-white">
             {/* {ordersData.length} */}
           </h4>
@@ -174,7 +174,7 @@ const Statistics = () => {
         </div>
         <div className="h-50 ml-4 flex w-auto flex-col justify-center">
           <p className="font-dm text-sm font-medium text-black">
-            Pending Tables
+            Pending Posts
           </p>
           <h4 className="text-xl font-bold text-[#E8AA42] dark:text-white">
             {/* {pendingTables.length} */}

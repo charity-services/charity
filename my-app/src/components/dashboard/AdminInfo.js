@@ -150,7 +150,7 @@ const AdminInfo = () => {
       <div className="bg-[#ffffff] mr-5 ml-5 p-10 rounded-2xl min-h-[calc(100vh)]   ">
         <div className="relative flex items-center justify-between pt-4">
           <div className="text-xl font-bold text-navy-700 dark:text-white">
-            Users Table
+            Admins 
           </div>
         </div>
 
