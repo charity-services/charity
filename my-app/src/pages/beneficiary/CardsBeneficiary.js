@@ -64,11 +64,12 @@ function Cards() {
         return (
           <Card className=" mt-10 w-[22rem] mr-3 ">
             <CardHeader color="blue-gray" className="relative h-57">
-              <img
+              {/* <img
                 src="https://media.istockphoto.com/id/1303833951/photo/vet-doctor-examining-labrador-dog.jpg?b=1&s=612x612&w=0&k=20&c=9pXgoWE5ai_faijylnCLpyORSiGKG0jxqBsLlNdntE8="
                 alt="img-blur-shadow"
                 layout="fill"
-              />
+              /> */}
+              <img src={POST?.image}/>
             </CardHeader>
             <CardBody>
               <div className="flex justify-between">
