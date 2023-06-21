@@ -52,7 +52,7 @@ const AdminInfo = () => {
 
   let slicedArrayUsers;
 
-  const itemsPerPage = 2;
+  const itemsPerPage = 5;
 
   totalItemsUsers = FilterDataUsers.length;
 

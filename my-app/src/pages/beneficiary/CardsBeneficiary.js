@@ -59,7 +59,7 @@ function Cards() {
       }, []);
 
   return (
-    <div className="flex flex-row flex-wrap">
+    <div className="flex flex-row flex-wrap justify-center">
       {cards.map((POST) => {
         return (
           <Card className=" mt-10 w-[22rem] mr-3 ">

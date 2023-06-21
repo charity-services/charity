@@ -1,10 +1,13 @@
 import EditProfileBeneficiary from "./EditProfileBeneficiary";
-import { useState, useEffect } from "react";
+import { useState, useEffect,useContext } from "react";
 import * as React from "react";
 import axios from "axios";
 import Cards from "./CardsBeneficiary";
-
+import { UserContext } from "../../UserContext";
 function ProfileBeneficiary() {
+
+  const { profileRefresh, updateProfileRefresh } = useContext(UserContext);
+
   const [cards, setCards] = useState([]);
   const [userId, setUserId] = useState();
   const [userData, setUserData] = useState({});
@@ -59,7 +62,7 @@ function ProfileBeneficiary() {
     if (localStorage.auth != null) {
       fetchProtectedData();
     }
-  }, []);
+  }, [profileRefresh]);
 
   return (
     <>

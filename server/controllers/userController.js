@@ -146,25 +146,25 @@ const usersMessages = (req, res) => {
     });
 };
 
-const aboutUs = (req, res) => {
-  User.find()
-    .then((data) => {
+// const aboutUs = (req, res) => {
+//   User.find()
+//     .then((data) => {
      
-      res.json(data);
-    })
-    .catch((error) => {
-      errorHandler(error, req, res);
-    });
-};
+//       res.json(data);
+//     })
+//     .catch((error) => {
+//       errorHandler(error, req, res);
+//     });
+// };
 
-const updateAboutUs= async (req, res) => {
-  const userId  = req.params.id;
-  const updatedUserData = req.body;
-  // updatedUserData.password= await bcrypt.hash(updatedUserData.password, 5)
-  const user = await User.findByIdAndUpdate(userId, updatedUserData, { new: true });
-  const updatedUser = await user.save();
-  res.json(updatedUser);
-};
+// const updateAboutUs= async (req, res) => {
+//   const userId  = req.params.id;
+//   const updatedUserData = req.body;
+//   // updatedUserData.password= await bcrypt.hash(updatedUserData.password, 5)
+//   const user = await User.findByIdAndUpdate(userId, updatedUserData, { new: true });
+//   const updatedUser = await user.save();
+//   res.json(updatedUser);
+// };
 
 module.exports = {
   allUsers,
@@ -178,7 +178,7 @@ module.exports = {
   allAdmins,
   newUserContactUs,
   usersMessages,
-  aboutUs,
-  updateAboutUs,
+  // aboutUs,
+  // updateAboutUs,
   
 }; 

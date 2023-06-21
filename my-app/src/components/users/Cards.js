@@ -193,10 +193,6 @@ export default function Cards() {
   const handleFilterChange = (typeValue, addressValue) => {
 
 
-    
-   
-
-      
       const filteredDataUsers = Beneficiarys?.filter(
         (item) =>
           item.donationType?.toLowerCase().includes(typeValue.toLowerCase()) &&
@@ -205,8 +201,6 @@ export default function Cards() {
       setFilterDataUsers(filteredDataUsers);
       console.log(filteredDataUsers)
     
-
-
 
   };
 

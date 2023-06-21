@@ -69,7 +69,7 @@ const navListMenuItems = [
     icon: RocketLaunchIcon,
     title: "User Profile",
     description: "Checkout your profile",
-    path: "./UserProfile",
+    path: "./ProfilePage",
   },
   {
     color: "teal",
@@ -90,10 +90,17 @@ const navListMenuItems = [
 function NavListMenu() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
+  const { closeNav, updateNav } = useContext(UserContext);
 
   const renderItems = navListMenuItems.map(
     ({ icon, title, description, color, path }, key) => (
-      <Link to={path} key={key}>
+      <Link to={path} key={key}
+      onClick={()=>{updateNav(!closeNav)
+      
+      console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+      }}
+
+      >
         <MenuItem className="flex items-center gap-3 rounded-lg">
           <div className={`rounded-lg p-5 ${colors[color]}`}>
             {React.createElement(icon, {
@@ -128,6 +135,8 @@ function NavListMenu() {
 }
 
 function NavList() {
+  const { closeNav, updateNav } = useContext(UserContext);
+
   return (
     <List className="mt-4 mb-6 p-0 lg:mt-0 lg:mb-0 lg:flex-row lg:p-1">
       <Typography
@@ -137,7 +146,9 @@ function NavList() {
         color="blue-gray"
         className="font-normal"
       >
-        <Link to="/">
+        <Link to="/"
+        onClick={()=>updateNav(false)}
+        >
           <ListItem className="flex items-center gap-2 py-2 pr-4 text-black hover:bg-gray-600 hover:text-white focus:bg-[#E8AA42]">
             <HomeIcon className="h-[18px] w-[18px] text-[#219D80] " />
             Home
@@ -151,7 +162,8 @@ function NavList() {
         color="blue-gray"
         className="font-normal"
       >
-        <Link to="/Blogs">
+        <Link to="/Blogs"
+        onClick={()=>updateNav(false)}>
           <ListItem className="flex items-center gap-2 py-2 pr-4 text-black hover:bg-gray-600 hover:text-white focus:bg-[#E8AA42]">
             <BookOpenIcon className="h-[18px] w-[18px] text-[#219D80] " />
             Blogs
@@ -181,7 +193,10 @@ function NavList() {
         color="blue-gray"
         className="font-normal"
       >
-        <Link to="/About">
+        <Link to="/About"
+        
+        onClick={()=>updateNav(false)}
+        >
           <ListItem className="flex items-center gap-2 py-2 pr-4 text-black hover:bg-gray-600 hover:text-white focus:bg-[#E8AA42]">
             <CubeTransparentIcon className="h-[18px] w-[18px] text-[#219D80]" />
             About Us
@@ -196,7 +211,10 @@ function NavList() {
         color="blue-gray"
         className="font-normal"
       >
-        <Link to="/ContactUs">
+        <Link to="/ContactUs"
+        onClick={()=>updateNav(false)}
+        
+        >
           <ListItem className="flex items-center gap-2 py-2 pr-4 text-black hover:bg-gray-600 hover:text-white focus:bg-[#E8AA42]">
             <UserCircleIcon className="h-[18px] w-[18px] text-[#219D80]" />
             Contact Us
@@ -268,7 +286,7 @@ export default function Example() {
 
   function ProfileMenu() {
     // const { SignStatus, updateSignStatus } = useContext(UserContext);
-
+    
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
     const closeMenu = (label) => {
@@ -352,6 +370,16 @@ export default function Example() {
       </Menu>
     );
   }
+   const { closeNav, updateNav } = useContext(UserContext);
+
+
+useEffect(() => {
+
+  
+  setOpenNav(closeNav)
+
+},[closeNav])
+
 
   return (
     <Navbar
@@ -389,7 +417,9 @@ export default function Example() {
           variant="text"
           color="blue-gray"
           className="lg:hidden"
-          onClick={() => setOpenNav(!openNav)}
+          onClick={() => {setOpenNav(!openNav)
+            updateNav(!openNav)
+          }}
         >
           {openNav ? (
             <XMarkIcon className="h-6 w-6" strokeWidth={2} />

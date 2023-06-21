@@ -4,6 +4,8 @@ import { Button } from "@material-tailwind/react";
 import axios from "axios";
 import { useNavigate } from "react-router";
 import Swal from "sweetalert2";
+import Icon from '@mdi/react';
+import { mdiStar } from '@mdi/js';
 const HomeBeneficiary = () => {
   const [img, setImg] = useState("");
 
@@ -61,6 +63,7 @@ const HomeBeneficiary = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault(); // Prevent the default behavior of the event
+    
     const formData = {
       Name: Name,
       location: location,
@@ -562,7 +565,11 @@ const HomeBeneficiary = () => {
             <div className="flex-1 mt-12 sm:max-w-lg lg:max-w-md">
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div>
-                  <label className="font-medium">Full name</label>
+
+                <div className="flex">
+                 { Name == ""? <p className="text-red-600 text-lg">* </p> :null}
+                 <label className="font-medium">Full name</label>
+                  </div>
                   <input
                     type="text"
                     required
@@ -572,7 +579,11 @@ const HomeBeneficiary = () => {
                   />
                 </div>
                 <div>
+                 
+                  <div className="flex">
+                 { location == ""? <p className="text-red-600 text-lg">* </p> :null}
                   <label className="font-medium">Location</label>
+                  </div>
                   <input
                     type="text"
                     required
@@ -583,7 +594,11 @@ const HomeBeneficiary = () => {
                 </div>
                 {priceStatus == true ?
                 <div>
-                  <label className="font-medium">Donation's amount</label>
+
+<div className="flex">
+                 { price == ""? <p className="text-red-600 text-lg">* </p> :null}
+                 <label className="font-medium">Donation's amount</label>
+                  </div>
                   <input
                     type="text"
                     placeholder="$"
@@ -595,7 +610,10 @@ const HomeBeneficiary = () => {
                 </div> : null
                 }
                 <div>
-                  <label className="font-medium">Description</label>
+                  <div className="flex">
+                 { des == ""? <p className="text-red-600 text-lg">* </p> :null}
+                 <label className="font-medium">Description</label>
+                  </div>
                   <textarea
                     required
                     value={des}
